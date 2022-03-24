@@ -14,7 +14,7 @@ var routes = [
     layout: "/web",
   },
   {
-    path: "/report",
+    path: "/report_emp",
     name: "ข้อมูลพนักงาน",
     icon: "nc-icon nc-world-2",
     component: ReportLayout,
