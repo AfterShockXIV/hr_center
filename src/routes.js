@@ -1,12 +1,12 @@
-import AddComponent from "components/AddComponent/AddComponent";
 
+import AddLayout from "layouts/AddLayout/AddLayout";
 var routes = [
  
   {
     path: "/add_data",
     name: "เพิ่มข้อมูล",
     icon: "nc-icon nc-world-2",
-    component: AddComponent,
+    component: AddLayout,
     layout: "/web",
   },
   

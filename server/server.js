@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); // parse form data client
 app.use(express.static(path.join(__dirname, "public"))); // configure express to use public folder
 app.use(express.urlencoded({ extended: false }));
-
+const bcrypt = require("bcryptjs");
 const oneDay = 1000 * 60 * 60 * 24;
 const session = require("express-session");
 app.use(
@@ -55,49 +55,6 @@ app.get("/getApi/getdata", (req, res) => {
   });
 });
 
-app.get("/getApi/getwebdata_all", (req, res) => {
-  db.query("SELECT * FROM web_data ", (err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
-      let DataWeb_data = result;
-      res.send(DataWeb_data);
-    }
-  });
-});
-
-app.get("/getApi/getwebdata_play/:login_id", (req, res) => {
-  let { login_id } = req.params;
-  console.log(login_id);
-  db.query(
-    `SELECT * FROM play_data INNER JOIN web_data on (web_data.web_run_id = play_data.web_run_id) INNER JOIN login_data on (login_data.login_id = play_data.login_id) where login_data.login_id = ${login_id} `,
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        let DataWeb_data = result;
-        res.send(DataWeb_data);
-      }
-    }
-  );
-});
-
-//Ceheck Session
-app.get("/api/sesstion/check", (req, res) => {
-  let session_check = (req.session.username) ? true : false;
-  // console.log(req.session)
-  // console.log(session_check)
-  res.json({ session_login: session_check });
-});
-
-//Del Session
-app.get("/api/sesstion/del", (req, res) => {
-  req.session.destroy((err) => {
-    res.json({ session_login: false });
-  });
-});
-
-const bcrypt = require("bcryptjs");
 app.post("/postApi/Login/Checklogin", (req, res) => {
   async function Check_login() {
     let { username, password } = req.body;
