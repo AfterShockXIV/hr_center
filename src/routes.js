@@ -1,8 +1,7 @@
 
 import AddLayout from "layouts/AddLayout/AddLayout";
 import ReportLayout from "layouts/ReportLayout/ReportLayout";
-//import EditLayout from "layouts/EditLayout/EditLayout";
-import EditpositionLayout from "layouts/EditpositionLayout/EditpositionLayout";
+import ReportsectionLayout from "layouts/ReportsectionLayout/ReportsectionLayout";
 import AddpositionLayout from "layouts/AddpositionLayout/AddpositionLayout";
 
 var routes = [
@@ -16,18 +15,11 @@ var routes = [
   },
   {
     path: "/report",
-    name: "Report",
+    name: "ข้อมูลพนักงาน",
     icon: "nc-icon nc-world-2",
     component: ReportLayout,
     layout: "/web",
   },
-  // {
-  //   path: "/edit",
-  //   name: "แก้ไขข้อมูล",
-  //   icon: "nc-icon nc-world-2",
-  //   component: EditLayout,
-  //   layout: "/web",
-  // },
   {
     path: "/add_position",
     name: "เพิ่มตำแหน่ง",
@@ -36,10 +28,10 @@ var routes = [
     layout: "/web",
   },
   {
-    path: "/edit_position",
+    path: "/report_position",
     name: "ตรวจสอบตำแหน่ง",
     icon: "nc-icon nc-world-2",
-    component: EditpositionLayout,
+    component: ReportsectionLayout,
     layout: "/web",
   },
 
