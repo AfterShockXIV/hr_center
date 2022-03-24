@@ -186,7 +186,7 @@ const AsstManager = () => {
                           required
                           type="text"
                         
-                          placeholder="ID_Employee"
+                          placeholder="รหัสพนักงาน"
                           style={{ fontSize: "12px" }}
                           onChange={(e) => setHr_Employeeid(e.target.value)}
                         />
@@ -198,7 +198,7 @@ const AsstManager = () => {
                         <Input
                           required
                           type="text"
-                          placeholder="Num_Employee"
+                          placeholder="เลขสแกนนิ้ว"
                           style={{ fontSize: "12px" }}
                           onChange={(e) => setNumber_emp(e.target.value)}
                         />
@@ -253,7 +253,7 @@ const AsstManager = () => {
                         <Input
                           required
                           type="text"
-                          placeholder="name"
+                          placeholder="First Name"
                           style={{ fontSize: "12px" }}
                           onChange={(e) => setHr_Employee_eng(e.target.value)}
                         ></Input>
@@ -265,7 +265,7 @@ const AsstManager = () => {
                         <Input
                           required
                           type="text"
-                          placeholder="lastname"
+                          placeholder="Last Name"
                           style={{ fontSize: "12px" }}
                           onChange={(e) => setHr_Lastname_Eng(e.target.value)}
                         ></Input>
@@ -279,7 +279,7 @@ const AsstManager = () => {
                         <Input
                           required
                           type="text"
-                          placeholder="Nickname"
+                          placeholder="ชื่อเล่น"
                           style={{ fontSize: "12px" }}
                           onChange={(e) =>
                             setHr_Employeenickname(e.target.value)
@@ -307,7 +307,7 @@ const AsstManager = () => {
                         <Input
                           required
                           type="tel"
-                          placeholder="Phone"
+                          placeholder="เบอร์โทรศัพท์"
                           style={{ fontSize: "12px" }}
                           onChange={(e) => setHr_Employeephone(e.target.value)}
                         />
@@ -447,7 +447,7 @@ const AsstManager = () => {
                         <label> E-mail</label>
                         <Input
                           type="email"
-                          placeholder="Email"
+                          placeholder="E-mail"
                           onChange={(e) => setHr_Email_User(e.target.value)}
                           style={{ fontSize: "12px" }}
                         />
@@ -459,7 +459,7 @@ const AsstManager = () => {
                         <Input
                           type="text"
                           // type="password"
-                          placeholder="Password"
+                          placeholder="รหัสผ่าน"
                           onChange={(e) => setHr_Password(e.target.value)}
                           style={{ fontSize: "12px" }}
                         />
