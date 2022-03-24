@@ -30,7 +30,6 @@ const Login_index = () => {
         .then((value) => {
           localStorage.setItem('accessToken', response['accessToken']);
           localStorage.setItem('DataLocal', JSON.stringify(response['DataLocal']));
-          // localStorage.setItem('member_id', JSON.stringify(response['member_id']));
           window.location.href = "/";
         });
     } else {

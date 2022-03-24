@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); // parse form data client
 app.use(express.static(path.join(__dirname, "public"))); // configure express to use public folder
 app.use(express.urlencoded({ extended: false }));
+
 const bcrypt = require("bcryptjs");
 const oneDay = 1000 * 60 * 60 * 24;
 const session = require("express-session");
@@ -85,12 +86,12 @@ app.post("/postApi/Login/Checklogin", (req, res) => {
               message: "Logged in",
               accessToken: tokentext,
               session_login: true,
-              DataLocal: {
+              DataLocal: [{
                 hr_employeeid : result[0].hr_employeeid,
                 hr_employeename : result[0].hr_employeename,
                 hr_surname : result[0].hr_surname,
                 name_department : result[0].name_department
-              }
+              }]
             });
           }
         }

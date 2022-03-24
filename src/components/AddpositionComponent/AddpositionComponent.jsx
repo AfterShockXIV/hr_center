@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import {Row,Col,Button,Form,FormGroup,Label,Input,Card,CardHeader,CardBody,} from "reactstrap";
 import swal from "sweetalert";
 import { useEffect } from "react";
-
+import UrlServer from "Configs/PortServer";
 export default function AddpositionComponent() {
 
-  
   //======= ID Dynamic ====================================
   const [id_section, setID_section] = useState("");
   const [id_department, setID_department] = useState("");
-
   //================เก็บค่าจาก API =====================
   const [hr_section, setHr_section] = useState([]);
   const [hr_department, setHr_department] = useState([]);
@@ -19,12 +17,11 @@ export default function AddpositionComponent() {
   //================== file ==============
 //   const [file, setFile] = useState();
 //   const [fileName, setFileName] = useState("");
-  
-  const server = "http://localhost:4000/";
+
 
   //==================================
   async function Check_bom(credentials) {
-    return fetch(server + "post_addposition", {
+    return fetch(`${UrlServer}/apis/post_position/add_position`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -48,40 +45,23 @@ export default function AddpositionComponent() {
         buttons: false,
         timer: 2200,
       }).then((value) => {
-        // window.location.href = "/admin/Add_sap";
+        window.location.href = "/add_position";
       });
     } else {
       swal("เพิ่มข้อมูลไม่สำเร็จ", response.message, "error");
     }
   };
-  //=========== type file_img=========
-//   const saveFile = (e) => {
-//     setFile(e.target.files[0]);
-//     setFileName(e.target.files[0].name);
-//   };
-//   const uploadFile = async (e) => {
-//     const formData = new FormData();
-//     formData.append("file", file);
-//     formData.append("fileName", fileName);
-//     formData.append("hr_employeeid", hr_employeeid);
-//     try {
-//       const res = await axios.post("http://localhost:4000/upload", formData);
-//       console.log(res);
-//     } catch (ex) {
-//       console.log(ex);
-//     }
-//   };
-  //============== dynamic_section=================
+
   useEffect(() => {
-    fetch("http://localhost:4000/dynamic_section")
+    fetch(`${UrlServer}/apis/dynamic/dynamic_section`)
       .then((response) => response.json())
       .then((result) => setHr_section(result))
       .catch((Error) => Error);
   }, []);
-
+  // console.log("ttee" + hr_section)
   //========== dynamic_dapartment==============
   useEffect(() => {
-    fetch("http://localhost:4000/dynamic_department/" + id_section)
+    fetch(`${UrlServer}/apis/dynamic/dynamic_departmet/${id_section}`)
       .then((response) => response.json())
       .then((result) => setHr_department(result))
       .catch((Error) => Error);

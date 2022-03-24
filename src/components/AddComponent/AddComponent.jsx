@@ -88,7 +88,7 @@ export default function AddComponent() {
         buttons: false,
         timer: 2200,
       }).then((value) => {
-        window.location.href = "/admin/edit_emp/" + response.id;
+        window.location.href = "/web/add_position";
       });
     } else {
       swal("เพิ่มข้อมูลไม่สำเร็จ", response.message, "error");
