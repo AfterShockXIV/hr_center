@@ -1,12 +1,13 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import {
-  Collapse,
   Navbar,
   Container,
 } from "reactstrap";
 import IconButton from '@mui/material/IconButton';
 import LogoutIcon from '@mui/icons-material/Logout';
+import './Navbar.scss'
+
 function Header(props) {
   const sidebarToggle = React.useRef();
   const location = useLocation();
@@ -31,8 +32,9 @@ function Header(props) {
     localStorage.removeItem("user");
     window.location.href = "/";
   };
-  const DataLocal = localStorage.getItem("DataLocal");
+  const DataLocal = localStorage.getItem("DataLocal.hr_employeename");
   console.log(DataLocal)
+  
 
   return (
 
@@ -56,7 +58,7 @@ function Header(props) {
           </div>
         </div>
         <div style={{ color: "black" , flex: 1}}>
-        <span class="badge badge-pill badge-success" style={{fontSize:'13px'}} >User :  </span>
+        <span  className="NavUserFont">User :  </span>
         </div>
        
 

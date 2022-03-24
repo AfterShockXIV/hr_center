@@ -47,7 +47,7 @@ function Sidebar(props) {
         <a
           href="/"
           className="simple-text logo-normal"
-        >WEBSERVICE
+        >HR VENINE
         </a>
       </div>
   
