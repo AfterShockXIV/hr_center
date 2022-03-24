@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
-// import Userform from "./userform";
 import { MDBDataTableV5 } from "mdbreact";
 import { Card,CardBody } from "reactstrap";
-
-
-//import Edit from "../views/edit";
-
+import UrlServer from "Configs/PortServer";
 
 
 export default function ReportsectionComponent() {
@@ -17,7 +13,7 @@ export default function ReportsectionComponent() {
   
 
   useEffect(() => {
-    fetch('http://localhost:4000/post_addposition_edit')
+    fetch(`${UrlServer}/apis/get/AllSection`)
       .then((response) => response.json())
       .then((result) => setData_status(result))
       .then(() => setLoading(false))
@@ -42,7 +38,7 @@ export default function ReportsectionComponent() {
   const row = [];
   data_status.forEach((data, key) => {
     row.push({ 
-      edit:<div> <a href={"/admin/Position_ed/"+data.id_section+"/"+data.id_department+"/"+data.id_position}><button type="button" className="button">แก้ไขข้อมูล</button></a></div>,
+      edit:<div> <a href={"/web/position_edit/"+data.id_section+"/"+data.id_department+"/"+data.id_position}><button type="button" className="button">แก้ไขข้อมูล</button></a></div>,
       //delete:<div ><a href={'http://localhost:4000/delete_position/'+data.id_position} ><button type="button" style={{backgroundColor:"#000", borderColor:"#000"}} onClick ={() => alert("ต้องการลบข้อมูลตำแหน่ง" +data.eng_position)}>ลบข้อมูล</button></a></div>,
       section:data.eng_section,
       department:data.eng_department,

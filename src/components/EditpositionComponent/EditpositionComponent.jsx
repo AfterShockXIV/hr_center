@@ -1,40 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Row,
   Col,
   Button,
-  Form,
-  FormGroup, Input,
+  FormGroup,
+  Input,
   Card,
   CardHeader,
   CardBody,
 } from "reactstrap";
 import swal from "sweetalert";
-
-import { useEffect } from "react";
-
+import UrlServer from "Configs/PortServer";
 
 export default function EditpositionComponent(props) {
-  // const [id_position, setID_position] = useState("");
-  // const [id_section, setID_section] = useState("");
-  // const [id_department, setID_department] = useState("");
-  // const [thai_position, setThai_position] = useState("");
-  // const [eng_position, setEng_position] = useState("");
-
   //===== แก้ไข
-  const [thai_position_edit, setThai_position_edit] = useState("");
-  const [eng_position_edit, setEng_position_edit] = useState("");
+  const form = useRef();
   const [data_all_id, setData_all_id] = useState([]);
-  // const [hr_section, setHr_section] = useState([]);
-  // const [hr_department, setHr_department] = useState([]);
-  // const [hr_position, setHr_position] = useState([]);
 
-  const server = "http://localhost:4000/";
-  
   useEffect(() => {
     fetch(
-      server +
-        "set_addposition/" +
+      UrlServer +
+        "/apis/get/AllSection/" +
         props.match.params.id_section +
         "/" +
         props.match.params.id_department +
@@ -44,82 +30,52 @@ export default function EditpositionComponent(props) {
       .then((response) => response.json())
       .then((result) => setData_all_id(result))
       .catch((Error) => Error);
-
-      
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  let id_position = props.match.params.id_position
-  async function Check_bom(credentials) {
-    return fetch(server + "position_edit", {
+let id_position =  props.match.params.id_position
+  const input_form = async (event) => {
+    event.preventDefault();
+    const fd = new FormData(form.current,{id_position:id_position});
+    const fe = Object.fromEntries(fd.entries());
+    const Data = {id_position:id_position , th_position : fe.th_position , eng_position : fe.eng_position}
+    console.log(Data)
+    fetch(`${UrlServer}/apis/post/position_edit`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(credentials),
-    }).then((data) => data.json());
-  }
- 
-  const input_form = async (event) => {
-    let thai = thai_position_edit
-    if(thai_position_edit === ""){
-      thai = data_all_id.thai_position 
-    }
-
-    let eng = eng_position_edit
-    if(eng_position_edit === ""){
-      eng = data_all_id.eng_position 
-    }
-
-    event.preventDefault();
-    const response = await Check_bom({
-      thai,
-      eng,
-      id_position,
-    });
-    if ("status" in response) {
-      swal("Success", response.message, "success", {
-        buttons: false,
-        timer: 2200,
-      }).then((value) => {
-        window.location.href = "/admin/Position_ed/"+ props.match.params.id_section + "/" +  props.match.params.id_department +"/"  + props.match.params.id_position;
+      body: JSON.stringify(Data),
+    })
+      .then((data) => data.json())
+      .then((result) => {
+        if ("status" in result) {
+          swal("Success", result.message, "success", {
+            buttons: false,
+            timer: 2200,
+          }).then((value) => {
+            window.location.href =
+              "/web/position_edit/" +
+              props.match.params.id_section +
+              "/" +
+              props.match.params.id_department +
+              "/" +
+              props.match.params.id_position;
+          });
+        } else {
+          swal("แก้ไขตำแหน่งไม่สำเร็จ", result.message, "error");
+        }
       });
-    } else {
-      swal("แก้ไขตำแหน่งไม่สำเร็จ", response.message, "error");
-    }
+
+    // const response = await Check_bom({
+    //   thai,
+    //   eng,
+    //   id_position,
+    // });
   };
-
-
-  // useEffect(() => {
-  //   fetch("http://localhost:4000/dynamic_department/" + id_section_edit)
-  //     .then((response) => response.json())
-  //     .then((result) => setHr_department(result))
-  //     .catch((Error) => Error);
-  // }, [id_section_edit]);
-
-  // useEffect(() => {
-  //   fetch("http://localhost:4000/dynamic_position/" + id_department_edit)
-  //     .then((response) => response.json())
-  //     .then((result) => setHr_position(result))
-  //     .catch((Error) => Error);
-  // }, [id_department_edit]);
-
-  // useEffect(() => {
-  //   fetch("http://localhost:4000/dynamic_position/" + id_position_edit)
-  //     .then((response) => response.json())
-  //     .then((result) => setHr_position(result))
-  //     .catch((Error) => Error);
-  // }, [id_position_edit]);
-
-  // useEffect(() => {
-  //   setThai_position_edit(data_all_id.thai_position);
-  //   setEng_position_edit(data_all_id.eng_position);
-  // }, []);
-
-
 
   return (
     <>
-      
-      <div className="content" >
+      <div className="content">
         <Row>
           <Col md="11">
             <Card style={{ marginLeft: "4%" }}>
@@ -127,7 +83,7 @@ export default function EditpositionComponent(props) {
                 <h5 className="title">แก้ไขชื่อฝ่าย-ตำแหน่ง</h5>
               </CardHeader>
               <CardBody>
-                <Form onSubmit={input_form}>
+                <form onSubmit={input_form} ref={form}>
                   <Row>
                     <Col sm="12">
                       <FormGroup>
@@ -139,7 +95,6 @@ export default function EditpositionComponent(props) {
                             backgroundColor: "#ebecf0",
                             fontSize: "14px",
                           }}
-                          // onChange={(e) => setID_section_edit(e.target.value)}
                         />
                       </FormGroup>
                     </Col>
@@ -154,9 +109,6 @@ export default function EditpositionComponent(props) {
                             fontSize: "14px",
                             backgroundColor: "#ebecf0",
                           }}
-                          // onChange={(e) =>
-                          //   setID_department_edit(e.target.value)
-                          // }
                         ></Input>
                       </FormGroup>
                     </Col>
@@ -166,15 +118,13 @@ export default function EditpositionComponent(props) {
                         <lable>ชื่อตำแหน่ง/ฝ่าย(THAI)</lable>
                         <Input
                           type="text"
+                          name="th_position"
                           required
                           style={{
                             fontSize: "14px",
                           }}
                           defaultValue={data_all_id.thai_position}
-                          onChange={(e) =>
-                            setThai_position_edit(e.target.value)
-                          }
-                        ></Input>
+                        />
                       </FormGroup>
                     </Col>
 
@@ -183,19 +133,19 @@ export default function EditpositionComponent(props) {
                         <lable>ชื่อตำแหน่ง/ฝ่าย(ENG)</lable>
                         <Input
                           type="text"
+                          name={"eng_position"}
                           required
                           defaultValue={data_all_id.eng_position}
                           style={{
                             fontSize: "14px",
                           }}
-                          onChange={(e) => setEng_position_edit(e.target.value)}
-                        ></Input>
+                        />
                       </FormGroup>
                     </Col>
                   </Row>
                   <br />
                   <Button type="submit">ตกลง</Button>
-                </Form>
+                </form>
               </CardBody>
             </Card>
           </Col>
