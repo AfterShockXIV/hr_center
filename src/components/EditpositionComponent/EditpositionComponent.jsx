@@ -11,7 +11,6 @@ import {
 } from "reactstrap";
 import swal from "sweetalert";
 
-import PanelHeader from "components/PanelHeader/PanelHeader";
 import { useEffect } from "react";
 
 
@@ -119,7 +118,7 @@ export default function EditpositionComponent(props) {
 
   return (
     <>
-      <PanelHeader size="sm" />
+      
       <div className="content" >
         <Row>
           <Col md="11">
@@ -140,7 +139,7 @@ export default function EditpositionComponent(props) {
                             backgroundColor: "#ebecf0",
                             fontSize: "14px",
                           }}
-                          onChange={(e) => setID_section_edit(e.target.value)}
+                          // onChange={(e) => setID_section_edit(e.target.value)}
                         />
                       </FormGroup>
                     </Col>
@@ -155,9 +154,9 @@ export default function EditpositionComponent(props) {
                             fontSize: "14px",
                             backgroundColor: "#ebecf0",
                           }}
-                          onChange={(e) =>
-                            setID_department_edit(e.target.value)
-                          }
+                          // onChange={(e) =>
+                          //   setID_department_edit(e.target.value)
+                          // }
                         ></Input>
                       </FormGroup>
                     </Col>

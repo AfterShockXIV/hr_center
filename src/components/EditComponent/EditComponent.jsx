@@ -12,41 +12,9 @@ import {
 } from "reactstrap";
 import swal from "sweetalert";
 import axios from "axios";
-import PanelHeader from "components/PanelHeader/PanelHeader";
 import { useEffect } from "react";
-// import { tail } from "lodash";
-// import { data } from "jquery";
-
-
-
-// const style = {
-//   position: "absolute",
-//   top: "50%",
-//   left: "50%",
-//   transform: "translate(-50%, -50%)",
-//   width: 450,
-//   bgcolor: "background.paper",
-//   // border: "2px solid #fff",
-//   borderRadius: "8px",
-//   boxShadow: 24,
-//   p: 4,
-// };
 
 export default function EditComponent(props) {
-  // let hr_run_id_props = props.match.params.id
-  // const [hr_employeeid, setHr_Employeeid] = useState("");
-  // const [hr_employeename, setHr_Employeename] = useState("");
-  // const [hr_surname, setHr_Employeesurname] = useState("");
-  // const [hr_nickname, setHr_Employeenickname] = useState("");
-  // const [hr_phone, setHr_Employeephone] = useState("");
-  // const [hr_job_start, setHr_Job_Start] = useState("");
-  // const [hr_email_user, setHr_Email_User] = useState("");
-  // const [hr_password, setHr_Password] = useState("");
-  // const [hr_employee_img, setHr_Eployee_Img] = useState("");
-  // const [hr_emp, setHr_Emp] = useState("");
-  // const [hr_employee_eng, setHr_Employee_eng] = useState("");
-  // const [hr_lastname_eng, setHr_Lastname_Eng] = useState("");
-
   //================ Edit ==============
   const [hr_employeeid_edit, setHr_Employeeid_edit] = useState("");
   const [hr_employeename_edit, setHr_Employeename_edit] = useState("");
@@ -320,7 +288,6 @@ export default function EditComponent(props) {
 
   return (
     <>
-      <PanelHeader size="sm" />
       <div className="content" onLoad={Set_edit}>
         <Row>
           <Col md="11">
@@ -776,7 +743,6 @@ export default function EditComponent(props) {
                       </FormGroup>
                     </Col>
                   </Row>{" "}
-                  
                   {/* <Button
                     onClick={handleOpen}
                     id="approve"
@@ -785,13 +751,12 @@ export default function EditComponent(props) {
                   >
                     Approve
                   </Button> */}
-      
                   <Button
                     type="submit"
                     style={{
                       backgroundColor: "#ff3636",
                       fontSize: "12.5px",
-                      fontWeight:"bolder"
+                      fontWeight: "bolder",
                     }}
                   >
                     บันทึก
@@ -799,7 +764,7 @@ export default function EditComponent(props) {
                   &nbsp; &nbsp;
                   <Button
                     type="button"
-                    style={{backgroundColor:"#666666", fontWeight:"bolder"}}
+                    style={{ backgroundColor: "#666666", fontWeight: "bolder" }}
                     data-bs-toggle="modal"
                     data-bs-target="#exampleModal"
                   >
@@ -825,16 +790,23 @@ export default function EditComponent(props) {
                             aria-label="Close"
                           ></button>
                         </div>
-                        <div class="modal-body"> You want to approve employee data? </div>
+                        <div class="modal-body">
+                          {" "}
+                          You want to approve employee data?{" "}
+                        </div>
                         <div class="modal-footer">
                           <Button
                             type="button"
-                            style={{backgroundColor:"#6c757d"}}
+                            style={{ backgroundColor: "#6c757d" }}
                             data-bs-dismiss="modal"
                           >
                             Close
-                          </Button>&nbsp; &nbsp;
-                          <Button type="button" style={{backgroundColor:"#0d6efd"}}>
+                          </Button>
+                          &nbsp; &nbsp;
+                          <Button
+                            type="button"
+                            style={{ backgroundColor: "#0d6efd" }}
+                          >
                             Save
                           </Button>
                         </div>
@@ -881,7 +853,6 @@ export default function EditComponent(props) {
                       </Box>
                     </Box>
                   // </Modal> */}
-                 
                 </Form>
               </CardBody>
             </Card>

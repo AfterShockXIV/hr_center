@@ -1,13 +1,13 @@
 import '../CSS/login.css'; //css
 import { useState } from "react";
 import swal from 'sweetalert';
+import  UrlServer  from 'Configs/PortServer';
 const Login_index = () => {
-  const [username, setUsername] = useState("");
+  const [hr_employeeid, setHr_employeeid] = useState("");
   const [password, setPassword] = useState("");
-  const server = "http://192.168.30.227:5000/";
 
   async function loginUser(credentials) {
-    return fetch(server + 'Check_login', {
+    return fetch(UrlServer + '/postApi/Login/Checklogin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -19,7 +19,7 @@ const Login_index = () => {
   const Check_login = async event => {
     event.preventDefault();
     const response = await loginUser({
-      username,
+      hr_employeeid,
       password
     });
     if ('accessToken' in response) {
@@ -29,8 +29,8 @@ const Login_index = () => {
       })
         .then((value) => {
           localStorage.setItem('accessToken', response['accessToken']);
-          localStorage.setItem('status', JSON.stringify(response['status']));
-          localStorage.setItem('member_id', JSON.stringify(response['member_id']));
+          localStorage.setItem('DataLocal', JSON.stringify(response['DataLocal']));
+          // localStorage.setItem('member_id', JSON.stringify(response['member_id']));
           window.location.href = "/";
         });
     } else {
@@ -47,9 +47,9 @@ const Login_index = () => {
           </div>
           <br />
           <form onSubmit={Check_login} >
-            <input required type="text" id="login" class="fadeIn second username_text" name="user_email" placeholder="Username" 
+            <input required type="text" id="login" class="fadeIn second username_text" name="hr_employeeid" placeholder="รหัสพนักงาน" 
               onChange={(event) => {
-                setUsername(event.target.value)
+                setHr_employeeid(event.target.value)
               }}
             />
             <input required type="password" id="password" class="fadeIn third" name="user_pass" placeholder="Password"

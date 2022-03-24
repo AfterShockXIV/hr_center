@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import {Row,Col,Button,Form,FormGroup,Label,Input,Card,CardHeader,CardBody,} from "reactstrap";
 import swal from "sweetalert";
-import axios from "axios";
-import PanelHeader from "components/PanelHeader/PanelHeader";
-import { data } from "jquery";
 import { useEffect } from "react";
-import { result } from "lodash";
 
 export default function AddpositionComponent() {
 
@@ -94,7 +90,6 @@ export default function AddpositionComponent() {
   //backgroundColor: "#808088"
   return (
     <>
-      <PanelHeader size="sm" />
       <div className="content">
         <Row>
           <Col md="11">

@@ -4,18 +4,13 @@ import { MDBDataTableV5 } from "mdbreact";
 import {
   Card,
   CardBody,
-
 } from "reactstrap";
-import PanelHeader from "components/PanelHeader/PanelHeader";
-import axios from "axios";
-
 
 export default function ReportComponent() {
   const [, setError] = useState();
   const [loading, setLoading] = useState(true);
   const [data_status, setData_status] = useState([]);
 
-  // const server = "http://localhost:3010";
 
   useEffect(() => {
     fetch("http://localhost:4000/post_form_hr")
@@ -25,19 +20,6 @@ export default function ReportComponent() {
       .catch(setError);
   }, []);
 
-  //================== แก้ไข ============================
-
-  // const check_edit = (hr_employeename ,hr_surname ) => {
-  //   console.log("name : " + hr_employeename )
-  //   console.log("surname : " + hr_surname )
-
-  // }
-  //การ filter
-  // const filter_api = data_status.filter((data)=>{
-  //   return data.BANPR === '05';
-  // })
-
-  // const test = 1 ;
   const name_department = localStorage.getItem("name_department");
   const row = [];
   data_status.forEach((data, key) => {
@@ -178,7 +160,7 @@ export default function ReportComponent() {
 
   return (
     <>
-      <PanelHeader size="sm" />
+
       <div className="content">
         <Card>
           <CardBody>

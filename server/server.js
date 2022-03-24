@@ -32,7 +32,7 @@ const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "123456",
-  database: "datawebbet",
+  database: "form_hr",
 });
 db.connect((err) => {
   if (err) {
@@ -45,29 +45,29 @@ app.listen(port, () => {
   console.log(`Server running on port: ${port}`);
 });
 
-app.get("/getApi/getdata", (req, res) => {
-  db.query("SELECT * FROM login_data ", (err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.send([result[0]]);
-    }
-  });
-});
+// app.get("/getApi/getdata", (req, res) => {
+//   db.query("SELECT * FROM login_data ", (err, result) => {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       res.send([result[0]]);
+//     }
+//   });
+// });
 
 app.post("/postApi/Login/Checklogin", (req, res) => {
   async function Check_login() {
-    let { username, password } = req.body;
-    bcrypt.hash(username, 10, (err, tokentext) => {
+    let { hr_employeeid, password } = req.body;
+    bcrypt.hash(hr_employeeid, 10, (err, tokentext) => {
       // console.log(tokentext);
       let data =
-        "select * from login_data where username = '" +
-        username +
-        "' and password = '" +
+        "select * from project_hr inner join hr_department on (project_hr.id_department = hr_department.id_department) where project_hr.hr_employeeid = '" +
+        hr_employeeid +
+        "' and project_hr.hr_password = '" +
         password +
         "' ";
       db.query(data, (err, result) => {
-        // console.log(result);
+        console.log(result);
         if (err) {
           console.log(err);
         } else {
@@ -79,14 +79,18 @@ app.post("/postApi/Login/Checklogin", (req, res) => {
             });
           } else {
             req.session.username = result[0].username;
-            console.log(req.session.username );
+            // console.log(req.session.username );
             res.send({
               status: "ok",
               message: "Logged in",
               accessToken: tokentext,
-              name: result[0].name,
-              login_id: result[0].login_id,
               session_login: true,
+              DataLocal: {
+                hr_employeeid : result[0].hr_employeeid,
+                hr_employeename : result[0].hr_employeename,
+                hr_surname : result[0].hr_surname,
+                name_department : result[0].name_department
+              }
             });
           }
         }
