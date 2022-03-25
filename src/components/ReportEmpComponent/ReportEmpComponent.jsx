@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
-// import Userform from "./userform";
 import { MDBDataTableV5 } from "mdbreact";
 import {
   Card,
   CardBody,
 } from "reactstrap";
-
-export default function ReportComponent() {
+import UrlServer from "Configs/PortServer";
+export default function ReportEmpComponent() {
   const [, setError] = useState();
   const [loading, setLoading] = useState(true);
   const [data_status, setData_status] = useState([]);
 
 
   useEffect(() => {
-    fetch("http://localhost:4000/post_form_hr")
+    fetch(`${UrlServer}/apis/get/allemp`)
       .then((response) => response.json())
       .then((result) => setData_status(result))
       .then(() => setLoading(false))
@@ -24,29 +23,29 @@ export default function ReportComponent() {
   const row = [];
   data_status.forEach((data, key) => {
     row.push({
-      btn_ed: (() => {
-        if (name_department.slice(1, -1) === "DTM") {
-          return (
-            <div>
-              <a href={"/admin/edit_emp/" + data.hr_run_id}>
-                <button type="button" className="button">
-                  EDIT
-                </button>
-              </a>
-            </div>
-          );
-        } else {
-          return (
-            <div>
-              <a href={"/admin/edit_emp/" + data.hr_run_id}>
-                <button type="button" className="button">
-                  DETAILS
-                </button>
-              </a>
-            </div>
-          );
-        }
-      })(),
+      // btn_ed: (() => {
+      //   if (name_department.slice(1, -1) === "DTM") {
+      //     return (
+      //       <div>
+      //         <a href={"/admin/edit_emp/" + data.hr_run_id}>
+      //           <button type="button" className="button">
+      //             EDIT
+      //           </button>
+      //         </a>
+      //       </div>
+      //     );
+      //   } else {
+      //     return (
+      //       <div>
+      //         <a href={"/admin/edit_emp/" + data.hr_run_id}>
+      //           <button type="button" className="button">
+      //             DETAILS
+      //           </button>
+      //         </a>
+      //       </div>
+      //     );
+      //   }
+      // })(),
 
 
       //<div className="button"><button onClick={() => check_edit(data.hr_employeename,data.hr_surname)}>แก้ไข</button></div>,

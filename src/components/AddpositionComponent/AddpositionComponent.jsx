@@ -51,14 +51,12 @@ export default function AddpositionComponent() {
       swal("เพิ่มข้อมูลไม่สำเร็จ", response.message, "error");
     }
   };
-
   useEffect(() => {
     fetch(`${UrlServer}/apis/dynamic/dynamic_section`)
       .then((response) => response.json())
       .then((result) => setHr_section(result))
       .catch((Error) => Error);
   }, []);
-  // console.log("ttee" + hr_section)
   //========== dynamic_dapartment==============
   useEffect(() => {
     fetch(`${UrlServer}/apis/dynamic/dynamic_departmet/${id_section}`)
@@ -66,6 +64,9 @@ export default function AddpositionComponent() {
       .then((result) => setHr_department(result))
       .catch((Error) => Error);
   }, [id_section]);
+
+
+  
 
   //backgroundColor: "#808088"
   return (

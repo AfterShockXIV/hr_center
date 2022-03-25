@@ -1,6 +1,6 @@
 
 import AddLayout from "layouts/AddLayout/AddLayout";
-import ReportLayout from "layouts/ReportLayout/ReportLayout";
+import ReportEmpLayout from "layouts/ReportEmpLayout/ReportEmpLayout";
 import ReportsectionLayout from "layouts/ReportsectionLayout/ReportsectionLayout";
 import AddpositionLayout from "layouts/AddpositionLayout/AddpositionLayout";
 
@@ -17,7 +17,7 @@ var routes = [
     path: "/report_emp",
     name: "ข้อมูลพนักงาน",
     icon: "nc-icon nc-world-2",
-    component: ReportLayout,
+    component: ReportEmpLayout,
     layout: "/web",
   },
   {

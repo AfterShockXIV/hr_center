@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 const Dynamic_section = (req, res, next) => {
-
     db.query('SELECT * FROM hr_section', (err, result) => {
         if (err) {
           console.log(err);
@@ -8,7 +7,6 @@ const Dynamic_section = (req, res, next) => {
             res.send(result)
         }
     })
-
 }
 module.exports.Dynamic_section = Dynamic_section;
 
@@ -27,3 +25,15 @@ const Dynamic_departmet = (req, res, next) => {
 
 }
 module.exports.Dynamic_departmet = Dynamic_departmet;
+
+const Dynamic_position = (req, res, next) => {
+    let {id_department} = req.params
+    db.query(`SELECT * FROM hr_position inner join hr_department on (hr_department.id_department = hr_position.id_department) where hr_department.id_department = ${id_department}`, (err, result) => {
+        if (err) {
+          console.log(err);
+        }else{
+            res.send(result)
+        }
+    })
+}
+module.exports.Dynamic_position = Dynamic_position;

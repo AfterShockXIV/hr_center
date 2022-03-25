@@ -1,0 +1,11 @@
+/* eslint-disable no-undef */
+const AllEmp = (req, res, next) => {
+    db.query(`SELECT * FROM project_hr  inner join hr_section on (project_hr.id_section = hr_section.id_section) inner join hr_department on (project_hr.id_department = hr_department.id_department)  inner join hr_position on (project_hr.id_position = hr_position.id_position) `, (err, result) => {
+        if (err) {
+          console.log(err);
+        }else{
+            res.send(result)
+        }
+    })
+}
+module.exports.AllEmp = AllEmp;

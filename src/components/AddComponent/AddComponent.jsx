@@ -13,8 +13,8 @@ import {
 } from "reactstrap";
 import swal from "sweetalert";
 import axios from "axios";
-
 import { useEffect } from "react";
+import UrlServer from "Configs/PortServer";
 
 export default function AddComponent() {
   const [hr_employeeid, setHr_Employeeid] = useState("");
@@ -45,11 +45,29 @@ export default function AddComponent() {
   //================== file ==============
   const [file, setFile] = useState();
   const [fileName, setFileName] = useState("");
-  const server = "http://localhost:4000/";
+
+
+ //=========== type file_img=========
+ const saveFile = (e) => {
+  setFile(e.target.files[0]);
+  setFileName(e.target.files[0].name);
+};
+const uploadFile = async (e) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("fileName", fileName);
+  formData.append("hr_employeeid", hr_employeeid);
+  try {
+    const res = await axios.post(`${UrlServer}/apis/post/update_img_emp`, formData);
+    console.log(res);
+  } catch (ex) {
+    console.log(ex);
+  }
+};
 
   //==================================
   async function Check_bom(credentials) {
-    return fetch(server + "post_form_hr", {
+    return fetch(`${UrlServer}/apis/post/post_form_hr`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -80,7 +98,7 @@ export default function AddComponent() {
       number_emp,
       birthday_emp,
     });
-    uploadFile();
+    await uploadFile();
 
     // =========================== swal =============================
     if ("status" in response) {
@@ -95,35 +113,18 @@ export default function AddComponent() {
     }
   };
 
-  //=========== type file_img=========
-  const saveFile = (e) => {
-    setFile(e.target.files[0]);
-    setFileName(e.target.files[0].name);
-  };
-  const uploadFile = async (e) => {
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("fileName", fileName);
-    formData.append("hr_employeeid", hr_employeeid);
-    try {
-      const res = await axios.post("http://localhost:4000/upload", formData);
-      console.log(res);
-    } catch (ex) {
-      console.log(ex);
-    }
-  };
+ 
 
   //============== dynamic_section=================
   useEffect(() => {
-    fetch("http://localhost:4000/dynamic_section")
+    fetch(`${UrlServer}/apis/dynamic/dynamic_section`)
       .then((response) => response.json())
       .then((result) => setHr_section(result))
       .catch((Error) => Error);
   }, []);
-
   //========== dynamic_dapartment==============
   useEffect(() => {
-    fetch("http://localhost:4000/dynamic_department/" + id_section)
+    fetch(`${UrlServer}/apis/dynamic/dynamic_departmet/${id_section}`)
       .then((response) => response.json())
       .then((result) => setHr_department(result))
       .catch((Error) => Error);
@@ -131,7 +132,7 @@ export default function AddComponent() {
 
   //========== dynamic_position ==============
   useEffect(() => {
-    fetch("http://localhost:4000/dynamic_position/" + id_department)
+    fetch(`${UrlServer}/apis/dynamic/dynamic_position/${id_department}`)
       .then((response) => response.json())
       .then((result) => setHr_position(result))
       .catch((Error) => Error);
@@ -468,7 +469,7 @@ const AsstManager = () => {
                   </Row>
                   <label> รูปภาพ</label>
                   <Input
-                    required
+                   
                     type="file"
                     name="image"
                     accept="image/*"
