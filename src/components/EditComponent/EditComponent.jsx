@@ -291,6 +291,9 @@ export default function EditComponent(props) {
   const handleClose = () => setOpen(false);
 
 
+  // ใส่ name ให้กับ type
+  // image,hr_employeeid,number_emp,hr_job_start,hr_employeename,hr_surname,hr_employee_eng,hr_lastname_eng,hr_nickname,birthday_emp,hr_phone,id_section,id_department,id_position,cat_em,hr_email_user,work,job_out,Password,
+
   return (
     <>
       <div className="content" onLoad={Set_edit()}>
@@ -342,6 +345,7 @@ export default function EditComponent(props) {
                             color: "red",
                           }}
                           type="text"
+                          name="hr_employeeid"
                           defaultValue={data_all.hr_employeeid}
                           placeholder="รหัสพนักงาน"
                           onChange={(e) =>
@@ -354,8 +358,10 @@ export default function EditComponent(props) {
                       <FormGroup>
                         <label> เลขเครื่องสแกนนิ้ว</label>
                         <Input
+                       
                           id="num_emp"
                           type="text"
+                          name="number_emp"
                           style={{
                             fontSize: "14px",
                             backgroundColor: "#ebecf0",
@@ -378,6 +384,7 @@ export default function EditComponent(props) {
                             color: "red",
                           }}
                           type="date"
+                          name="hr_job_start"
                           defaultValue={data_all.hr_job_start}
                           placeholder="วันเข้างาน"
                           onChange={(e) => setHr_Job_Start_edit(e.target.value)}
@@ -397,6 +404,7 @@ export default function EditComponent(props) {
                             color: "red",
                           }}
                           type="text"
+                          name="hr_employeename"
                           placeholder="ชื่อ(ภาษาไทย)"
                           defaultValue={data_all.hr_employeename}
                           onChange={(e) =>
@@ -416,6 +424,7 @@ export default function EditComponent(props) {
                             color: "red",
                           }}
                           type="text"
+                          name="hr_surname"
                           placeholder="นามสกุล"
                           defaultValue={data_all.hr_surname}
                           onChange={(e) =>
@@ -437,6 +446,7 @@ export default function EditComponent(props) {
                             color: "red",
                           }}
                           type="text"
+                          name="hr_employee_eng"
                           placeholder="name"
                           defaultValue={data_all.hr_employee_eng}
                           onChange={(e) =>
@@ -457,6 +467,7 @@ export default function EditComponent(props) {
                             color: "red",
                           }}
                           type="text"
+                          name="hr_lastname_eng"
                           placeholder="lastname"
                           defaultValue={data_all.hr_lastname_eng}
                           onChange={(e) =>
@@ -478,6 +489,7 @@ export default function EditComponent(props) {
                             color: "red",
                           }}
                           type="text"
+                          name="hr_nickname"
                           placeholder="Nickname"
                           defaultValue={data_all.hr_nickname}
                           onChange={(e) =>
@@ -497,6 +509,7 @@ export default function EditComponent(props) {
                             color: "red",
                           }}
                           type="date"
+                          name="birthday_emp"
                           defaultValue={data_all.birthday_emp}
                           onChange={(e) => setBirthday_Emp_edit(e.target.value)}
                         ></Input>
@@ -513,6 +526,7 @@ export default function EditComponent(props) {
                             color: "red",
                           }}
                           type="tel"
+                          name="hr_phone"
                           placeholder="Phone"
                           defaultValue={data_all.hr_phone}
                           onChange={(e) =>
@@ -534,6 +548,7 @@ export default function EditComponent(props) {
                             color: "red",
                           }}
                           type="select"
+                          name="id_section"
                           onChange={(e) => setID_section_edit(e.target.value)}
                         >
                           <option checked value={data_all.id_section}>
@@ -560,6 +575,7 @@ export default function EditComponent(props) {
                             color: "red",
                           }}
                           type="select"
+                          name="id_department"
                           onChange={(e) =>
                             setID_department_edit(e.target.value)
                           }
@@ -590,6 +606,7 @@ export default function EditComponent(props) {
                             color: "red",
                           }}
                           type="select"
+                          name="id_position"
                           defaultValue={hr_position}
                           onChange={(e) => setID_position_edit(e.target.value)}
                         >
@@ -679,6 +696,7 @@ export default function EditComponent(props) {
                             color: "red",
                           }}
                           type="email"
+                          name="hr_email_user"
                           placeholder="Email"
                           defaultValue={data_all.hr_email_user}
                           onChange={(e) =>
@@ -727,6 +745,7 @@ export default function EditComponent(props) {
                           backgroundColor: "#ebecf0",
                         }}
                         id="check_date_out"
+                        name="job_out"
                         defaultValue={data_all.job_out}
                         onChange={(e) => setJob_out_edit(e.target.value)}
                       ></Input>
@@ -744,7 +763,7 @@ export default function EditComponent(props) {
                           }}
                           //type="password"
                           disabled
-                          name="pw"
+                          name="Password"
                           defaultValue={" * Password Private * "}
                           //defaultValue={data_all.hr_password}
                           placeholder="Password"
