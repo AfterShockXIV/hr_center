@@ -13,7 +13,7 @@ function App() {
     <div className="App">
       <Switch>
       <Route path="/web" render={(props) => <AdminLayout {...props} />} />
-      <Redirect to="/web/add_data" />
+      <Redirect to="/web/report_emp" />
       </Switch>
     </div>
   );
