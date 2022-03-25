@@ -5,7 +5,8 @@ const cors = require("cors");
 const path = require("path");
 const bodyParser = require("body-parser");
 const authRoute = require("./src/routes/auth");
-
+const fileupload = require("express-fileupload");
+app.use(fileupload());
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));

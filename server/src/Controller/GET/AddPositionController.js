@@ -1,12 +1,11 @@
 /* eslint-disable no-undef */
 const Add_position = (req, res, next) => {
   let { id_section, id_department, thai_position, eng_position } = req.body;
-  console.log(id_section, id_department, thai_position, eng_position);
 
     db.query(
-      `INSERT INTO hr_position(id_department, thai_position, eng_position) VALUES (?,?,?)`,
+      `INSERT INTO hr_position(id_section,id_department, thai_position, eng_position) VALUES (?,?,?,?)`,
       [
-        id_department, thai_position, eng_position
+        id_section,id_department, thai_position, eng_position
       ],
       (err, result) => {
         if (err) {
