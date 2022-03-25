@@ -217,6 +217,8 @@ export default function EditComponent(props) {
       document.getElementById("pass").disabled = true;
       document.getElementById("btn_submit").disabled = true
       document.getElementById("btn_approve").disabled = true
+      document.getElementById("check_date_out").disabled = true
+      
     }
   };
 
@@ -693,9 +695,9 @@ export default function EditComponent(props) {
                       </label>
                       <Input
                         type="date"
+                        size="md"
                         style={{
                           color: "red",
-                          borderColor: "red",
                           backgroundColor: "#ebecf0",
                         }}
                         id="check_date_out"
