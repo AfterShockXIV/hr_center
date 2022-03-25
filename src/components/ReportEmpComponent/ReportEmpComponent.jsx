@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { MDBDataTableV5 } from "mdbreact";
-import {
-  Card,
-  CardBody,
-} from "reactstrap";
+import { Card, CardBody } from "reactstrap";
 import UrlServer from "Configs/PortServer";
 export default function ReportEmpComponent() {
   const [, setError] = useState();
   const [loading, setLoading] = useState(true);
   const [data_status, setData_status] = useState([]);
-
 
   useEffect(() => {
     fetch(`${UrlServer}/apis/get/allemp`)
@@ -23,33 +19,19 @@ export default function ReportEmpComponent() {
   const row = [];
   data_status.forEach((data, key) => {
     row.push({
-      // btn_ed: (() => {
-      //   if (name_department.slice(1, -1) === "DTM") {
-      //     return (
-      //       <div>
-      //         <a href={"/admin/edit_emp/" + data.hr_run_id}>
-      //           <button type="button" className="button">
-      //             EDIT
-      //           </button>
-      //         </a>
-      //       </div>
-      //     );
-      //   } else {
-      //     return (
-      //       <div>
-      //         <a href={"/admin/edit_emp/" + data.hr_run_id}>
-      //           <button type="button" className="button">
-      //             DETAILS
-      //           </button>
-      //         </a>
-      //       </div>
-      //     );
-      //   }
-      // })(),
-
-
+      btn_ed: (() => {
+          return (
+            <div>
+              <a href={"/web/edit_emp/" + data.hr_run_id}>
+                <button type="button" className="button">
+                  EDIT
+                </button>
+              </a>
+            </div>
+          );
+      })(),
       //<div className="button"><button onClick={() => check_edit(data.hr_employeename,data.hr_surname)}>แก้ไข</button></div>,
-      //image:<img src={'http://localhost:4000/'+data.hr_em0ployee_img} alt="" style={{height:"60px",width:"60px"}}/>,
+      // image:<img src={'http://localhost:4000/'+data.hr_em0ployee_img} alt="" style={{height:"60px",width:"60px"}}/>,
       empname: data.hr_employeename,
       surname: data.hr_surname,
       department: data.eng_department,
@@ -59,7 +41,7 @@ export default function ReportEmpComponent() {
       position: data.eng_position,
       //job_start:data.hr_job_start,
       phone: data.hr_phone,
-      birthday:data.birthday_emp,
+      birthday: data.birthday_emp,
 
       status_emp: (() => {
         if (data.status_emp === "ทำงานอยู่") {
@@ -78,7 +60,7 @@ export default function ReportEmpComponent() {
           );
         }
       })(),
-      mail:data.hr_email_user,
+      mail: data.hr_email_user,
     });
   });
   const datatable = {
@@ -159,7 +141,6 @@ export default function ReportEmpComponent() {
 
   return (
     <>
-
       <div className="content">
         <Card>
           <CardBody>

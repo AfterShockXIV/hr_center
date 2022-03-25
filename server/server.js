@@ -87,12 +87,10 @@ app.post("/postApi/Login/Checklogin", (req, res) => {
               message: "Logged in",
               accessToken: tokentext,
               session_login: true,
-              DataLocal: [{
-                hr_employeeid : result[0].hr_employeeid,
-                hr_employeename : result[0].hr_employeename,
-                hr_surname : result[0].hr_surname,
-                name_department : result[0].name_department
-              }]
+              hr_employeeid : result[0].hr_employeeid,
+              hr_employeename : result[0].hr_employeename,
+              hr_surname : result[0].hr_surname,
+              name_department : result[0].name_department
             });
           }
         }

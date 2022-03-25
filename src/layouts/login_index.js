@@ -29,7 +29,7 @@ const Login_index = () => {
       })
         .then((value) => {
           localStorage.setItem('accessToken', response['accessToken']);
-          localStorage.setItem('DataLocal', JSON.stringify(response['DataLocal']));
+          localStorage.setItem('name_department', JSON.stringify(response['name_department']));
           window.location.href = "/";
         });
     } else {

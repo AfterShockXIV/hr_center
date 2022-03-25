@@ -13,7 +13,7 @@ import {
 import swal from "sweetalert";
 import axios from "axios";
 import { useEffect } from "react";
-
+import UrlServer from "Configs/PortServer";
 export default function EditComponent(props) {
   //================ Edit ==============
   const [hr_employeeid_edit, setHr_Employeeid_edit] = useState("");
@@ -135,59 +135,63 @@ export default function EditComponent(props) {
 
   //============== dynamic_section=================
   useEffect(() => {
-    fetch("http://localhost:4000/set_project_hr/" + props.match.params.id)
+    fetch(`${UrlServer}/apis/get/allemp/${props.match.params.hr_run_id}`)
       .then((response) => response.json())
       .then((result) => setData_all(result))
+      // .then((data) => {
+
+      // })
       .catch((Error) => Error);
   }, []);
 
   //============== dynamic_section=================
   useEffect(() => {
-    fetch("http://localhost:4000/dynamic_section")
+    fetch(`${UrlServer}/apis/dynamic/dynamic_section`)
       .then((response) => response.json())
       .then((result) => setHr_section(result))
       .catch((Error) => Error);
   }, []);
-
   //========== dynamic_dapartment==============
   useEffect(() => {
-    fetch("http://localhost:4000/dynamic_department/" + id_section_edit)
+    fetch(`${UrlServer}/apis/dynamic/dynamic_departmet/${id_section}`)
       .then((response) => response.json())
       .then((result) => setHr_department(result))
       .catch((Error) => Error);
-  }, [id_section_edit]);
+  }, [id_section]);
 
-  // //========== dynamic_position ==============
+  //========== dynamic_position ==============
   useEffect(() => {
-    fetch("http://localhost:4000/dynamic_position/" + id_department_edit)
+    fetch(`${UrlServer}/apis/dynamic/dynamic_position/${id_department}`)
       .then((response) => response.json())
       .then((result) => setHr_position(result))
       .catch((Error) => Error);
-  }, [id_department_edit]);
+  }, [id_department]);
 
-  const Set_edit = () => {
-    setHr_Employeeid_edit(data_all.hr_employeeid);
-    setHr_Job_Start_edit(data_all.hr_job_start);
-    setHr_Email_User_edit(data_all.hr_email_user);
-    setHr_Employeename_edit(data_all.hr_employeename);
-    setHr_Employeesurname_edit(data_all.hr_surname);
-    setHr_Employee_eng_edit(data_all.hr_employee_eng);
-    setHr_Lastname_Eng_edit(data_all.hr_lastname_eng);
-    setHr_Employeenickname_edit(data_all.hr_nickname);
-    setHr_Employeephone_edit(data_all.hr_phone);
-    setHr_Emp_edit(data_all.hr_emp);
-    // setID_section_eng_edit(data_all.eng_section)
-    setID_section_edit(data_all.id_section);
-    setID_department_edit(data_all.id_department);
-    // setID_department_eng_edit(data_all.eng_department)
-    setID_position_edit(data_all.id_position);
-    setHr_Password_edit(data_all.hr_password);
-    setNumber_emp_edit(data_all.number_emp);
-    setJob_out_edit(data_all.job_out);
-    setBirthday_Emp_edit(data_all.birthday_emp);
-    setStatus_emp_edit(data_all.status_emp);
+ 
 
+  const Set_edit = async () => {
     //========== radio พนักงาน รายวัน / รายเดือน /ผู้อำนวยการ / ผู้ช่วยผู้จัดการ /ผู้จัดการ ===========
+    // setHr_Employeeid_edit(data_all.hr_employeeid);
+    // setHr_Job_Start_edit(data_all.hr_job_start);
+    // setHr_Email_User_edit(data_all.hr_email_user);
+    // setHr_Employeename_edit(data_all.hr_employeename);
+    // setHr_Employeesurname_edit(data_all.hr_surname);
+    // setHr_Employee_eng_edit(data_all.hr_employee_eng);
+    // setHr_Lastname_Eng_edit(data_all.hr_lastname_eng);
+    // setHr_Employeenickname_edit(data_all.hr_nickname);
+    // setHr_Employeephone_edit(data_all.hr_phone);
+    // setHr_Emp_edit(data_all.hr_emp);
+    // // setID_section_eng_edit(data_all.eng_section)
+    // setID_section_edit(data_all.id_section);
+    // setID_department_edit(data_all.id_department);
+    // // setID_department_eng_edit(data_all.eng_department)
+    // setID_position_edit(data_all.id_position);
+    // setHr_Password_edit(data_all.hr_password);
+    // setNumber_emp_edit(data_all.number_emp);
+    // setJob_out_edit(data_all.job_out);
+    // setBirthday_Emp_edit(data_all.birthday_emp);
+    // setStatus_emp_edit(data_all.status_emp);
+
     if (data_all.hr_emp === "รายเดือน") {
       document.getElementById("cat_1").checked = true;
     } else if (data_all.hr_emp === "รายวัน") {
@@ -286,14 +290,17 @@ export default function EditComponent(props) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+
   return (
     <>
-      <div className="content" onLoad={Set_edit}>
+      <div className="content" onLoad={Set_edit()}>
         <Row>
           <Col md="11">
             <Card style={{ marginLeft: "4%" }}>
               <CardHeader style={{ backgroundColor: "#747474", color: "#fff" }}>
-                <h5 className="title">แก้ไขข้อมูลพนักงาน</h5>
+                <h5 className="title">
+                  แก้ไขข้อมูลพนักงาน {hr_employeeid_edit}
+                </h5>
               </CardHeader>
 
               <CardBody>
@@ -301,8 +308,9 @@ export default function EditComponent(props) {
                   <Row>
                     <label>รูปภาพ</label>
                     <br />
+                    <a target="_blank" href={`${UrlServer}/IMG_EMP/${data_all.hr_employee_img}`} rel="noreferrer">
                     <img
-                      src={"http://localhost:4000/" + data_all.hr_employee_img}
+                      src={`${UrlServer}/IMG_EMP/${data_all.hr_employee_img}`}
                       alt=""
                       style={{
                         height: "150px",
@@ -310,6 +318,7 @@ export default function EditComponent(props) {
                         marginBottom: "10px",
                       }}
                     />
+                    </a>
                     <br />
                     <br />
                     <br />
@@ -325,6 +334,7 @@ export default function EditComponent(props) {
                       <FormGroup>
                         <label> รหัสพนักงาน</label>
                         <Input
+                        
                           id="id_emp"
                           style={{
                             fontSize: "14px",

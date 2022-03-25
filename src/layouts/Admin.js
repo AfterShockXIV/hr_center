@@ -6,6 +6,7 @@ import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import routes from "routes.js";
 import EditpositionComponent from "components/EditpositionComponent/EditpositionComponent";
+import EditComponent from "components/EditComponent/EditComponent";
 var ps;
 
 function Dashboard(props) {
@@ -54,6 +55,10 @@ function Dashboard(props) {
           <Route
             path={"/web/position_edit/:id_section/:id_department/:id_position"}
             component={EditpositionComponent}
+          ></Route>
+          <Route
+            path={"/web/edit_emp/:hr_run_id"}
+            component={EditComponent}
           ></Route>
         </Switch>
       </div>
