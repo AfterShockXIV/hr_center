@@ -38,7 +38,7 @@ export default function ReportsectionComponent() {
   const row = [];
   data_status.forEach((data, key) => {
     row.push({ 
-      edit:<div> <a href={"/web/position_edit/"+data.id_section+"/"+data.id_department+"/"+data.id_position}><button type="button" className="button">แก้ไขข้อมูล</button></a></div>,
+      edit:<div> <a href={"/web/position_edit/"+data.id_section+"/"+data.id_department+"/"+data.id_position}><button type="submit" >แก้ไขข้อมูล</button></a></div>,
       //delete:<div ><a href={'http://localhost:4000/delete_position/'+data.id_position} ><button type="button" style={{backgroundColor:"#000", borderColor:"#000"}} onClick ={() => alert("ต้องการลบข้อมูลตำแหน่ง" +data.eng_position)}>ลบข้อมูล</button></a></div>,
       section:data.eng_section,
       department:data.eng_department,

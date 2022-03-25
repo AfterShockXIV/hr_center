@@ -477,7 +477,7 @@ const AsstManager = () => {
                     style={{ fontSize: "14px" }}
                   ></Input>
                   <br />
-                <Button type="submit" style={{backgroundColor:"#f36838",fontSize: "13px", padding: "8px 10px 8px 10px"}}>บันทึกข้อมูล</Button>
+                <button type="submit" style={{backgroundColor:"#28a745", color:"#fff",padding:"8px 10px 8px 10px", border:"#fff",fontSize:"13px",borderRadius:"5px",margin:"8px 0 10px 0"}}>บันทึกข้อมูล</button>
                 </Form>
               </CardBody>
             </Card>
