@@ -32,6 +32,7 @@ export default function EditpositionComponent(props) {
       .catch((Error) => Error);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  
 let id_position =  props.match.params.id_position
   const input_form = async (event) => {
     event.preventDefault();

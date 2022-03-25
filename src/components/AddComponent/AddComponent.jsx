@@ -186,7 +186,6 @@ const AsstManager = () => {
                         <Input
                           required
                           type="text"
-                        
                           placeholder="รหัสพนักงาน"
                           style={{ fontSize: "12px" }}
                           onChange={(e) => setHr_Employeeid(e.target.value)}

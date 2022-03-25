@@ -26,5 +26,8 @@ router.post('/apis/post/update_img_emp',FormHrAdd.FormHrIMG)
 const AllEmp = require('../Controller/GET/AllEmpController')
 router.get('/apis/get/allemp',AllEmp.AllEmp)
 router.get('/apis/get/allemp/:hr_run_id',AllEmp.AllEmpParams)
-
+//===============================================================
+const EmpEdit = require('../Controller/POST/EmpEdit')
+router.post('/apis/post/emp_edit',EmpEdit.Emp_edit)
+router.post('/apis/post/approve_emp',EmpEdit.Emp_approve)
 module.exports = router;

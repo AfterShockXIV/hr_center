@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Row,
   Col,
   Button,
-  Form,
   FormGroup,
   Input,
   Card,
@@ -12,33 +11,17 @@ import {
 } from "reactstrap";
 import swal from "sweetalert";
 import axios from "axios";
-import { useEffect } from "react";
 import UrlServer from "Configs/PortServer";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
 export default function EditComponent(props) {
   //================ Edit ==============
-  const [hr_employeeid_edit, setHr_Employeeid_edit] = useState("");
-  const [hr_employeename_edit, setHr_Employeename_edit] = useState("");
-  const [hr_surname_edit, setHr_Employeesurname_edit] = useState("");
-  const [hr_nickname_edit, setHr_Employeenickname_edit] = useState("");
-  const [hr_phone_edit, setHr_Employeephone_edit] = useState("");
-  const [hr_job_start_edit, setHr_Job_Start_edit] = useState("");
-  const [hr_email_user_edit, setHr_Email_User_edit] = useState("");
-  const [hr_password_edit, setHr_Password_edit] = useState("");
-  const [hr_employee_img_edit, setHr_Eployee_Img_edit] = useState("");
-  const [hr_emp_edit, setHr_Emp_edit] = useState("");
-  const [hr_employee_eng_edit, setHr_Employee_eng_edit] = useState("");
-  const [hr_lastname_eng_edit, setHr_Lastname_Eng_edit] = useState("");
-  const [number_emp_edit, setNumber_emp_edit] = useState("");
-  const [status_emp_edit, setStatus_emp_edit] = useState("");
-  const [job_out_edit, setJob_out_edit] = useState("");
-  const [birthday_emp_edit, setBirthday_Emp_edit] = useState("");
-
-  const [id_section_edit, setID_section_edit] = useState("");
-  const [hr_section_eng_edit, setHr_section_eng_edit] = useState("");
-
-  const [id_department_edit, setID_department_edit] = useState("");
-
-  const [id_position_edit, setID_position_edit] = useState("");
+  const form = useRef();
+  const [open_approve, setOpen_approve] = useState(false);
+  const handleOpen_approve = () => setOpen_approve(true);
+  const handleClose_approve = () => {
+    setOpen_approve(false);
+  };
 
   //======= ID Dynamic ====================================
   const [id_section, setID_section] = useState("");
@@ -55,60 +38,9 @@ export default function EditComponent(props) {
   const [file, setFile] = useState();
   const [fileName, setFileName] = useState("");
 
-  const server = "http://localhost:4000/";
-
   const id = data_all.hr_run_id;
-  //==================================
-  async function Check_bom(credentials) {
-    return fetch(server + "post_form_hr_edit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    }).then((data) => data.json());
-  }
 
   //=================== onSubmit_input_form ==============
-  const input_form = async (event) => {
-    event.preventDefault();
-    uploadFile();
-    const response = await Check_bom({
-      id,
-      hr_employeeid_edit,
-      hr_employeename_edit,
-      hr_surname_edit,
-      hr_nickname_edit,
-      hr_phone_edit,
-      hr_job_start_edit,
-      hr_email_user_edit,
-      hr_password_edit,
-      hr_employee_img_edit,
-      hr_emp_edit,
-      hr_employee_eng_edit,
-      hr_lastname_eng_edit,
-      id_section_edit,
-      hr_section_eng_edit,
-      id_department_edit,
-      id_position_edit,
-      number_emp_edit,
-      status_emp_edit,
-      job_out_edit,
-      birthday_emp_edit,
-    });
-
-    // =========================== swal =============================
-    if ("status" in response) {
-      swal("Success", response.message, "success", {
-        buttons: false,
-        timer: 2200,
-      }).then((value) => {
-        window.location.href = "/admin/edit_emp/" + response.id;
-      });
-    } else {
-      swal("เพิ่มข้อมูลไม่สำเร็จ", response.message, "error");
-    }
-  };
 
   //=========== type file_img=========
   const old_img = data_all.hr_employee_img;
@@ -116,6 +48,7 @@ export default function EditComponent(props) {
     setFile(e.target.files[0]);
     setFileName(e.target.files[0].name);
   };
+
   const uploadFile = async (e) => {
     const formData = new FormData();
     formData.append("file", file);
@@ -138,9 +71,6 @@ export default function EditComponent(props) {
     fetch(`${UrlServer}/apis/get/allemp/${props.match.params.hr_run_id}`)
       .then((response) => response.json())
       .then((result) => setData_all(result))
-      // .then((data) => {
-
-      // })
       .catch((Error) => Error);
   }, []);
 
@@ -167,31 +97,83 @@ export default function EditComponent(props) {
       .catch((Error) => Error);
   }, [id_department]);
 
- 
+  const input_form = async (event) => {
+    event.preventDefault();
+    const fd = new FormData(form.current, { id_position: id_position });
+    const fe = Object.fromEntries(fd.entries());
+    const Data = {
+      hr_run_id: id,
+      hr_employeeid: fe.hr_employeeid,
+      number_emp: fe.number_emp,
+      hr_job_start: fe.hr_job_start,
+      hr_employeename: fe.hr_employeename,
+      hr_surname: fe.hr_surname,
+      hr_employee_eng: fe.hr_employee_eng,
+      hr_lastname_eng: fe.hr_lastname_eng,
+      hr_nickname: fe.hr_nickname,
+      birthday_emp: fe.birthday_emp,
+      hr_phone: fe.hr_phone,
+      id_section: fe.id_section,
+      id_department: fe.id_department,
+      id_position: fe.id_position,
+      hr_emp: fe.cat_em,
+      hr_email_user: fe.hr_email_user,
+      status_emp: fe.work,
+      hr_password: fe.hr_password,
+      job_out: fe.job_out,
+     
+    };
 
+    fetch(`${UrlServer}/apis/post/emp_edit`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(Data),
+    })
+      .then((data) => data.json())
+      .then((result) => {
+        if ("status" in result) {
+          swal("Success", result.message, "success", {
+            buttons: false,
+            timer: 2200,
+          }).then((value) => {
+            window.location.href = "/web/edit_emp/"+props.match.params.hr_run_id
+
+          });
+        } else {
+          swal("แก้ไขตำแหน่งไม่สำเร็จ", result.message, "error");
+        }
+      });
+  };
+
+  const Click_approve = async (event) => {
+   
+    const Data = {hr_run_id: id}
+
+    fetch(`${UrlServer}/apis/post/approve_emp`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(Data),
+    })
+      .then((data) => data.json())
+      .then((result) => {
+        if ("status" in result) {
+          swal("Success", result.message, "success", {
+            buttons: false,
+            timer: 2200,
+          }).then((value) => {
+            window.location.href = "/web/edit_emp/"+props.match.params.hr_run_id
+
+          });
+        } else {
+          swal("แก้ไขตำแหน่งไม่สำเร็จ", result.message, "error");
+        }
+      });
+  };
   const Set_edit = async () => {
-    //========== radio พนักงาน รายวัน / รายเดือน /ผู้อำนวยการ / ผู้ช่วยผู้จัดการ /ผู้จัดการ ===========
-    // setHr_Employeeid_edit(data_all.hr_employeeid);
-    // setHr_Job_Start_edit(data_all.hr_job_start);
-    // setHr_Email_User_edit(data_all.hr_email_user);
-    // setHr_Employeename_edit(data_all.hr_employeename);
-    // setHr_Employeesurname_edit(data_all.hr_surname);
-    // setHr_Employee_eng_edit(data_all.hr_employee_eng);
-    // setHr_Lastname_Eng_edit(data_all.hr_lastname_eng);
-    // setHr_Employeenickname_edit(data_all.hr_nickname);
-    // setHr_Employeephone_edit(data_all.hr_phone);
-    // setHr_Emp_edit(data_all.hr_emp);
-    // // setID_section_eng_edit(data_all.eng_section)
-    // setID_section_edit(data_all.id_section);
-    // setID_department_edit(data_all.id_department);
-    // // setID_department_eng_edit(data_all.eng_department)
-    // setID_position_edit(data_all.id_position);
-    // setHr_Password_edit(data_all.hr_password);
-    // setNumber_emp_edit(data_all.number_emp);
-    // setJob_out_edit(data_all.job_out);
-    // setBirthday_Emp_edit(data_all.birthday_emp);
-    // setStatus_emp_edit(data_all.status_emp);
-
     if (data_all.hr_emp === "รายเดือน") {
       document.getElementById("cat_1").checked = true;
     } else if (data_all.hr_emp === "รายวัน") {
@@ -205,7 +187,6 @@ export default function EditComponent(props) {
     } else if (data_all.hr_emp === "ผู้ช่วยผู้จัดการ") {
       document.getElementById("asst").checked = true;
     }
-
     //สถานะการทำงาน
     if (data_all.status_emp === "ทำงานอยู่") {
       document.getElementById("cat_5").checked = true;
@@ -234,6 +215,8 @@ export default function EditComponent(props) {
       // document.getElementById("cat_5").disabled= true;
       document.getElementById("mail_emp").disabled = true;
       document.getElementById("pass").disabled = true;
+      document.getElementById("btn_submit").disabled = true
+      document.getElementById("btn_approve").disabled = true
     }
   };
 
@@ -249,7 +232,7 @@ export default function EditComponent(props) {
     document.getElementById("de").style.visibility = "";
     document.getElementById("label_po").style.visibility = "hidden";
     document.getElementById("label_de").style.visibility = "";
-    setID_position_edit("51");
+    setID_position("51");
   };
 
   const asstmanager = () => {
@@ -257,7 +240,7 @@ export default function EditComponent(props) {
     document.getElementById("de").style.visibility = "";
     document.getElementById("label_po").style.visibility = "hidden";
     document.getElementById("label_de").style.visibility = "";
-    setID_position_edit("63");
+    setID_position("63");
   };
 
   const director = () => {
@@ -265,12 +248,12 @@ export default function EditComponent(props) {
     document.getElementById("po").style.visibility = "hidden";
     document.getElementById("label_de").style.visibility = "hidden";
     document.getElementById("label_po").style.visibility = "hidden";
-    setID_department_edit("26");
-    setID_position_edit("50");
+    setID_department("26");
+    setID_position("50");
   };
 
   const Click_check_work = () => {
-    setJob_out_edit("");
+    // setJob_out_edit("");
     document.getElementById("check_date_out").style.display = "none";
     document.getElementById("label_check_date_out").style.display = "none";
     document.getElementById("check_date_out").required = false;
@@ -286,14 +269,19 @@ export default function EditComponent(props) {
   };
   //=========== return ==========================
 
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-
   // ใส่ name ให้กับ type
   // image,hr_employeeid,number_emp,hr_job_start,hr_employeename,hr_surname,hr_employee_eng,hr_lastname_eng,hr_nickname,birthday_emp,hr_phone,id_section,id_department,id_position,cat_em,hr_email_user,work,job_out,Password,
-
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "30%",
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    borderRadius: "25px",
+    p: 4,
+  };
   return (
     <>
       <div className="content" onLoad={Set_edit()}>
@@ -302,25 +290,29 @@ export default function EditComponent(props) {
             <Card style={{ marginLeft: "4%" }}>
               <CardHeader style={{ backgroundColor: "#747474", color: "#fff" }}>
                 <h5 className="title">
-                  แก้ไขข้อมูลพนักงาน {hr_employeeid_edit}
+                  แก้ไขข้อมูลพนักงาน 
                 </h5>
               </CardHeader>
 
               <CardBody>
-                <Form onSubmit={input_form}>
+                <form ref={form} onSubmit={input_form}>
                   <Row>
                     <label>รูปภาพ</label>
                     <br />
-                    <a target="_blank" href={`${UrlServer}/IMG_EMP/${data_all.hr_employee_img}`} rel="noreferrer">
-                    <img
-                      src={`${UrlServer}/IMG_EMP/${data_all.hr_employee_img}`}
-                      alt=""
-                      style={{
-                        height: "150px",
-                        width: "150px",
-                        marginBottom: "10px",
-                      }}
-                    />
+                    <a
+                      target="_blank"
+                      href={`${UrlServer}/IMG_EMP/${data_all.hr_employee_img}`}
+                      rel="noreferrer"
+                    >
+                      <img
+                        src={`${UrlServer}/IMG_EMP/${data_all.hr_employee_img}`}
+                        alt=""
+                        style={{
+                          height: "150px",
+                          width: "150px",
+                          marginBottom: "10px",
+                        }}
+                      />
                     </a>
                     <br />
                     <br />
@@ -337,7 +329,6 @@ export default function EditComponent(props) {
                       <FormGroup>
                         <label> รหัสพนักงาน</label>
                         <Input
-                        
                           id="id_emp"
                           style={{
                             fontSize: "14px",
@@ -348,9 +339,6 @@ export default function EditComponent(props) {
                           name="hr_employeeid"
                           defaultValue={data_all.hr_employeeid}
                           placeholder="รหัสพนักงาน"
-                          onChange={(e) =>
-                            setHr_Employeeid_edit(e.target.value)
-                          }
                         ></Input>
                       </FormGroup>
                     </Col>
@@ -358,7 +346,6 @@ export default function EditComponent(props) {
                       <FormGroup>
                         <label> เลขเครื่องสแกนนิ้ว</label>
                         <Input
-                       
                           id="num_emp"
                           type="text"
                           name="number_emp"
@@ -369,7 +356,6 @@ export default function EditComponent(props) {
                           }}
                           placeholder="Num_Employee"
                           defaultValue={data_all.number_emp}
-                          onChange={(e) => setNumber_emp_edit(e.target.value)}
                         />
                       </FormGroup>
                     </Col>
@@ -387,7 +373,6 @@ export default function EditComponent(props) {
                           name="hr_job_start"
                           defaultValue={data_all.hr_job_start}
                           placeholder="วันเข้างาน"
-                          onChange={(e) => setHr_Job_Start_edit(e.target.value)}
                         ></Input>
                       </FormGroup>
                     </Col>
@@ -407,9 +392,6 @@ export default function EditComponent(props) {
                           name="hr_employeename"
                           placeholder="ชื่อ(ภาษาไทย)"
                           defaultValue={data_all.hr_employeename}
-                          onChange={(e) =>
-                            setHr_Employeename_edit(e.target.value)
-                          }
                         ></Input>
                       </FormGroup>
                     </Col>
@@ -427,9 +409,6 @@ export default function EditComponent(props) {
                           name="hr_surname"
                           placeholder="นามสกุล"
                           defaultValue={data_all.hr_surname}
-                          onChange={(e) =>
-                            setHr_Employeesurname_edit(e.target.value)
-                          }
                         ></Input>
                       </FormGroup>
                     </Col>
@@ -449,9 +428,6 @@ export default function EditComponent(props) {
                           name="hr_employee_eng"
                           placeholder="name"
                           defaultValue={data_all.hr_employee_eng}
-                          onChange={(e) =>
-                            setHr_Employee_eng_edit(e.target.value)
-                          }
                         ></Input>
                       </FormGroup>
                     </Col>
@@ -470,9 +446,6 @@ export default function EditComponent(props) {
                           name="hr_lastname_eng"
                           placeholder="lastname"
                           defaultValue={data_all.hr_lastname_eng}
-                          onChange={(e) =>
-                            setHr_Lastname_Eng_edit(e.target.value)
-                          }
                         ></Input>
                       </FormGroup>
                     </Col>
@@ -492,9 +465,6 @@ export default function EditComponent(props) {
                           name="hr_nickname"
                           placeholder="Nickname"
                           defaultValue={data_all.hr_nickname}
-                          onChange={(e) =>
-                            setHr_Employeenickname_edit(e.target.value)
-                          }
                         ></Input>
                       </FormGroup>
                     </Col>
@@ -511,7 +481,6 @@ export default function EditComponent(props) {
                           type="date"
                           name="birthday_emp"
                           defaultValue={data_all.birthday_emp}
-                          onChange={(e) => setBirthday_Emp_edit(e.target.value)}
                         ></Input>
                       </FormGroup>
                     </Col>
@@ -529,9 +498,6 @@ export default function EditComponent(props) {
                           name="hr_phone"
                           placeholder="Phone"
                           defaultValue={data_all.hr_phone}
-                          onChange={(e) =>
-                            setHr_Employeephone_edit(e.target.value)
-                          }
                         ></Input>
                       </FormGroup>
                     </Col>
@@ -549,7 +515,7 @@ export default function EditComponent(props) {
                           }}
                           type="select"
                           name="id_section"
-                          onChange={(e) => setID_section_edit(e.target.value)}
+                          onChange={(e) => setID_section(e.target.value)}
                         >
                           <option checked value={data_all.id_section}>
                             {data_all.eng_section}
@@ -564,6 +530,7 @@ export default function EditComponent(props) {
                         </Input>
                       </FormGroup>
                     </Col>
+
                     <Col sm="4">
                       <FormGroup>
                         <label id="label_de">ฝ่าย</label>
@@ -576,9 +543,7 @@ export default function EditComponent(props) {
                           }}
                           type="select"
                           name="id_department"
-                          onChange={(e) =>
-                            setID_department_edit(e.target.value)
-                          }
+                          onChange={(e) => setID_department(e.target.value)}
                         >
                           {" "}
                           <option checked value={data_all.id_department}>
@@ -608,7 +573,6 @@ export default function EditComponent(props) {
                           type="select"
                           name="id_position"
                           defaultValue={hr_position}
-                          onChange={(e) => setID_position_edit(e.target.value)}
                         >
                           {" "}
                           <option checked value={data_all.id_position}>
@@ -638,7 +602,6 @@ export default function EditComponent(props) {
                               type="radio"
                               value="รายเดือน"
                               name="cat_em"
-                              onChange={(e) => setHr_Emp_edit(e.target.value)}
                             />
                             <label>รายเดือน</label>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -648,7 +611,6 @@ export default function EditComponent(props) {
                               type="radio"
                               value="รายวัน"
                               name="cat_em"
-                              onChange={(e) => setHr_Emp_edit(e.target.value)}
                             />
                             <label>รายวัน</label>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -658,7 +620,6 @@ export default function EditComponent(props) {
                               type="radio"
                               value="ผู้อำนวยการ"
                               name="cat_em"
-                              onChange={(e) => setHr_Emp_edit(e.target.value)}
                             />
                             <label>ผู้อำนวยการ</label>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -668,7 +629,6 @@ export default function EditComponent(props) {
                               type="radio"
                               value="ผู้จัดการ"
                               name="cat_em"
-                              onChange={(e) => setHr_Emp_edit(e.target.value)}
                             />
                             <label>ผู้จัดการ</label>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -678,7 +638,6 @@ export default function EditComponent(props) {
                               type="radio"
                               value="ผู้ช่วยผู้จัดการ"
                               name="cat_em"
-                              onChange={(e) => setHr_Emp_edit(e.target.value)}
                             />
                             <label>ผู้ช่วยผู้จัดการ</label>
                           </div>
@@ -699,9 +658,6 @@ export default function EditComponent(props) {
                           name="hr_email_user"
                           placeholder="Email"
                           defaultValue={data_all.hr_email_user}
-                          onChange={(e) =>
-                            setHr_Email_User_edit(e.target.value)
-                          }
                         />
                       </FormGroup>
                     </Col>
@@ -717,7 +673,6 @@ export default function EditComponent(props) {
                             type="radio"
                             value="ทำงานอยู่"
                             name="work"
-                            onChange={(e) => setStatus_emp_edit(e.target.value)}
                           />
                           <label id="label_job"> ทำงานอยู่ </label>
                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -727,7 +682,6 @@ export default function EditComponent(props) {
                             type="radio"
                             value="ลาออก"
                             name="work"
-                            onChange={(e) => setStatus_emp_edit(e.target.value)}
                           />
                           <label>ลาออก</label>
                         </div>
@@ -747,7 +701,6 @@ export default function EditComponent(props) {
                         id="check_date_out"
                         name="job_out"
                         defaultValue={data_all.job_out}
-                        onChange={(e) => setJob_out_edit(e.target.value)}
                       ></Input>
                     </Col>
 
@@ -762,25 +715,16 @@ export default function EditComponent(props) {
                             color: "red",
                           }}
                           //type="password"
-                          disabled
-                          name="Password"
-                          defaultValue={" * Password Private * "}
-                          //defaultValue={data_all.hr_password}
+
+                          name="hr_password"
+                          defaultValue={data_all.hr_password}
                           placeholder="Password"
-                          onChange={(e) => setHr_Password_edit(e.target.value)}
                         />
                       </FormGroup>
                     </Col>
                   </Row>{" "}
-                  {/* <Button
-                    onClick={handleOpen}
-                    id="approve"
-                    type="button"
-                    style={{ backgroundColor: "#ef820d", marginTop: "3%" }}
-                  >
-                    Approve
-                  </Button> */}
                   <Button
+                    id="btn_submit"
                     type="submit"
                     style={{
                       backgroundColor: "#ff3636",
@@ -791,102 +735,76 @@ export default function EditComponent(props) {
                     บันทึก
                   </Button>
                   &nbsp; &nbsp;
+
                   <Button
+                   id="btn_approve"
                     type="button"
                     style={{ backgroundColor: "#666666", fontWeight: "bolder" }}
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
+                    onClick={handleOpen_approve}
                   >
                     Approve
                   </Button>
-                  <div
-                    class="modal fade"
-                    id="exampleModal"
-                    tabindex="-1"
-                    aria-labelledby="examqpleModalLabel"
-                    aria-hidden="true"
-                  >
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">
-                            Approve
-                          </h5>
-                          <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                          ></button>
-                        </div>
-                        <div class="modal-body">
-                          {" "}
-                          You want to approve employee data?{" "}
-                        </div>
-                        <div class="modal-footer">
-                          <Button
-                            type="button"
-                            style={{ backgroundColor: "#6c757d" }}
-                            data-bs-dismiss="modal"
-                          >
-                            Close
-                          </Button>
-                          &nbsp; &nbsp;
-                          <Button
-                            type="button"
-                            style={{ backgroundColor: "#0d6efd" }}
-                          >
-                            Save
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  {/* <Modal
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                  >
-                    <Box sx={style}>
-                      <Typography
-                        id="modal-modal-title"
-                        variant="h6"
-                        component="h2"
-                      >
-                        Approve
-                      </Typography>
-                      <hr style={{ border: "2px" }} />
-                      <Typography id="modal-modal-description" sx={{ p: 1 }}>
-                        Want to approve employee data?
-                      </Typography>
-
-                      <Box sx={{ p: 2 }} display="flex">
-                        {" "}
-                        &nbsp;
-                        <Button
-                          type="button"
-                          // class="btn btn-secondary"
-                          // data-bs-dismiss="modal"
-                          style={{ backgroundColor: "#6c757d" }}
-                        >
-                          Close
-                        </Button>{" "}
-                        &nbsp;&nbsp;&nbsp;
-                        <Button
-                          type="button"
-                          style={{ backgroundColor: "#0d6efd" }}
-                        >
-                          Save
-                        </Button>
-                      </Box>
-                    </Box>
-                  // </Modal> */}
-                </Form>
+                </form>
               </CardBody>
             </Card>
           </Col>
         </Row>
+
+          {/* ============MODAL_return ====================== */}
+          <div>
+          <Modal
+            open={open_approve}
+            onClose={handleClose_approve}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              {/* <span>{job_run_id}</span> */}
+              <h5 className="text-center">
+                <b>ยืนยันการตรวจสอบข้อมูล</b>
+              </h5>
+              <br />
+              <h5 className="text-center">
+                ข้อมูลถูกต้อง
+              </h5>
+              <div className="text-center">
+                <Box
+                  component="form"
+                  sx={{
+                    "& > :not(style)": { m: 1, width: "100%" },
+                  }}
+                  noValidate
+                  autoComplete="off"
+                >
+                  <Button
+                    variant="contained"
+                    onClick={Click_approve}
+                    size="small"
+                    style={{ width: "30%" }}
+                    fullWidth
+                    color="success"
+                  >
+                    ตกลง
+                  </Button>
+
+                  <Button
+                    variant="contained"
+                    onClick={handleClose_approve}
+                    size="small"
+                    style={{ width: "30%" }}
+                    fullWidth
+                    color="error"
+                  >
+                    ยกเลิก
+                  </Button>
+                </Box>
+
+                <br />
+              </div>
+            </Box>
+          </Modal>
+        </div>
+        {/* ============MODAL_return ====================== */}
       </div>
     </>
   );
