@@ -9,7 +9,7 @@ var routes = [];
 if( name_department !== null){
 
 
-if(name_department.slice(1,-1) === "HRM"){
+if(name_department.slice(1,-1) === '"HRM"'){
   routes.push(
     {
       path: "/add_data",
