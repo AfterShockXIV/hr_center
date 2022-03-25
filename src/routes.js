@@ -6,6 +6,9 @@ import AddpositionLayout from "layouts/AddpositionLayout/AddpositionLayout";
 const name_department = localStorage.getItem("name_department");
 var routes = [];
 
+if( name_department !== null){
+
+
 if(name_department.slice(1,-1) === "HRM"){
   routes.push(
     {
@@ -47,7 +50,7 @@ routes.push(
     layout: "/web",
   })
 }
-
+}
 console.log(name_department)
 
 export default routes;
