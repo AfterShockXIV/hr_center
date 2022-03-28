@@ -35,8 +35,7 @@ function Header(props) {
 
   const name = localStorage.getItem("hr_employeename");
   const surname = localStorage.getItem("hr_surname");
-  const name_department = localStorage.getItem("name_department");
-
+  
   return (
 
     // add or remove classes depending if we are on full-screen-maps page or not

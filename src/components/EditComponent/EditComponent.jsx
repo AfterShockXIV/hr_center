@@ -16,6 +16,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 export default function EditComponent(props) {
   //================ Edit ==============
+  const name_department = localStorage.getItem("name_department");
   const form = useRef();
   const [open_approve, setOpen_approve] = useState(false);
   const handleOpen_approve = () => setOpen_approve(true);
@@ -193,6 +194,7 @@ export default function EditComponent(props) {
       document.getElementById("asst").checked = true;
     }
     //สถานะการทำงาน
+
     if (data_all.status_emp === "ทำงานอยู่") {
       document.getElementById("cat_5").checked = true;
       document.getElementById("check_date_out").style.display = "none";
@@ -270,10 +272,10 @@ export default function EditComponent(props) {
     document.getElementById("check_date_out").style.display = "";
     document.getElementById("label_check_date_out").style.display = "";
     document.getElementById("check_date_out").required = true;
-
     document.getElementById("mail_emp").disabled = true;
     document.getElementById("pass").disabled = true;
   };
+
   //=========== return ==========================
 
   // ใส่ name ให้กับ type
@@ -728,17 +730,23 @@ export default function EditComponent(props) {
                       </FormGroup>
                     </Col>
                   </Row>{" "}
-                  <Button
-                    id="btn_submit"
-                    type="submit"
-                    style={{
-                      backgroundColor: "#ff3636",
-                      fontSize: "12.5px",
-                      fontWeight: "bolder",
-                    }}
-                  >
-                    บันทึก
-                  </Button>
+                  {(() => {
+                    if (name_department === '"HRM"') {
+                      return (
+                        <Button
+                          id="btn_submit"
+                          type="submit"
+                          style={{
+                            backgroundColor: "#ff3636",
+                            fontSize: "12.5px",
+                            fontWeight: "bolder",
+                          }}
+                        >
+                          บันทึก
+                        </Button>
+                      );
+                    }
+                  })()}
                   &nbsp; &nbsp;
                   <Button
                     id="btn_approve"
