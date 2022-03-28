@@ -151,7 +151,7 @@ export default function EditComponent(props) {
   };
 
   const Click_approve = async (event) => {
-    const Data = { hr_run_id: id };
+    const Data = { hr_run_id : id };
 
     fetch(`${UrlServer}/apis/post/approve_emp`, {
       method: "POST",
