@@ -30,6 +30,10 @@ const Login_index = () => {
         .then((value) => {
           localStorage.setItem('accessToken', response['accessToken']);
           localStorage.setItem('name_department', JSON.stringify(response['name_department']));
+          localStorage.setItem('hr_employeename', JSON.stringify(response['hr_employeename']));
+          localStorage.setItem('hr_surname', JSON.stringify(response['hr_surname']));
+          localStorage.setItem('hr_run_id', JSON.stringify(response['hr_run_id']));
+          localStorage.setItem('hr_employeeid', JSON.stringify(response['hr_employeeid']));
           window.location.href = "/";
         });
     } else {

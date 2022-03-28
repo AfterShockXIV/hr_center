@@ -28,13 +28,14 @@ function Header(props) {
     }
   }, [location]);
   const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("user");
+ 
+    localStorage.clear()
     window.location.href = "/";
   };
-  const DataLocal = localStorage.getItem("DataLocal.hr_employeename");
-  console.log(DataLocal)
-  
+
+  const name = localStorage.getItem("hr_employeename");
+  const surname = localStorage.getItem("hr_surname");
+  const name_department = localStorage.getItem("name_department");
 
   return (
 
@@ -58,7 +59,7 @@ function Header(props) {
           </div>
         </div>
         <div style={{ color: "black" , flex: 1}}>
-        <span  className="NavUserFont">User :  </span>
+        <span  className="NavUserFont">User : {`${name.slice(1,-1)}  ${surname.slice(1,-1)}`} </span>
         </div>
        
 

@@ -21,8 +21,6 @@ const Emp_edit = (req, res, next) => {
     hr_password,
     job_out,
   } = req.body;
- 
-
   let position_edit =
     "UPDATE project_hr SET hr_employeeid = '" +
     hr_employeeid +
@@ -63,6 +61,7 @@ const Emp_edit = (req, res, next) => {
     "' WHERE hr_run_id = '" +
     hr_run_id +
     "' ";
+    
   db.query(position_edit, (err, result) => {
     if (err) {
       console.log(err);

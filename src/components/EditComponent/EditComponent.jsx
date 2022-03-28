@@ -47,7 +47,7 @@ export default function EditComponent(props) {
   const saveFile = (e) => {
     setFile(e.target.files[0]);
     setFileName(e.target.files[0].name);
-    setOleFileName(data_all.hr_employee_img)
+    setOleFileName(data_all.hr_employee_img);
   };
 
   const uploadFile = async (e) => {
@@ -57,7 +57,10 @@ export default function EditComponent(props) {
     formData.append("hr_run_id", id);
     formData.append("OlefileName", OlefileName);
     try {
-      const res = await axios.post(`${UrlServer}/apis/post/update_img_emp_edit`, formData);
+      const res = await axios.post(
+        `${UrlServer}/apis/post/update_img_emp_edit`,
+        formData
+      );
       console.log(res);
     } catch (ex) {
       console.log(ex);
@@ -66,11 +69,11 @@ export default function EditComponent(props) {
 
   //============== dynamic_section=================
   useEffect(() => {
-    fetch(`${UrlServer}/apis/get/allemp/${props.match.params.hr_run_id}`)
+    fetch(`${UrlServer}/apis/get/allempedit/${props.match.params.hr_run_id}`)
       .then((response) => response.json())
       .then((result) => setData_all(result))
       .catch((Error) => Error);
-  }, []);
+  }, [props.match.params.hr_run_id]);
 
   //============== dynamic_section=================
   useEffect(() => {
@@ -135,7 +138,7 @@ export default function EditComponent(props) {
           swal("Success", result.message, "success", {
             buttons: false,
             timer: 2200,
-          }).then( async (value) => {
+          }).then(async (value) => {
             await uploadFile();
             window.location.href =
               "/web/edit_emp/" + props.match.params.hr_run_id;
@@ -163,7 +166,6 @@ export default function EditComponent(props) {
             buttons: false,
             timer: 2200,
           }).then(async (value) => {
-          
             window.location.href =
               "/web/edit_emp/" + props.match.params.hr_run_id;
           });
@@ -173,6 +175,10 @@ export default function EditComponent(props) {
       });
   };
   const Set_edit = async () => {
+    if (data_all.status_approve === "approve") {
+      document.getElementById("btn_approve").hidden = true;
+    }
+
     if (data_all.hr_emp === "รายเดือน") {
       document.getElementById("cat_1").checked = true;
     } else if (data_all.hr_emp === "รายวัน") {
@@ -216,7 +222,7 @@ export default function EditComponent(props) {
       document.getElementById("mail_emp").disabled = true;
       document.getElementById("pass").disabled = true;
       document.getElementById("btn_submit").disabled = true;
-      document.getElementById("btn_approve").disabled = true;
+      document.getElementById("btn_approve").hidden = true;
       document.getElementById("check_date_out").disabled = true;
     }
   };

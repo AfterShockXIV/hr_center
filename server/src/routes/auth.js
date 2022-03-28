@@ -27,8 +27,8 @@ router.post('/apis/post/update_img_emp',FormHrIMG.FormHrIMG)
 router.post('/apis/post/update_img_emp_edit',FormHrIMG.FormHrEditIMG)
 //===============================================================
 const AllEmp = require('../Controller/GET/AllEmpController')
-router.get('/apis/get/allemp',AllEmp.AllEmp)
-router.get('/apis/get/allemp/:hr_run_id',AllEmp.AllEmpParams)
+router.get('/apis/get/allemp/:name_department',AllEmp.AllEmp)
+router.get('/apis/get/allempedit/:hr_run_id',AllEmp.AllEmpParams)
 //===============================================================
 const EmpEdit = require('../Controller/POST/EmpEdit')
 router.post('/apis/post/emp_edit',EmpEdit.Emp_edit)

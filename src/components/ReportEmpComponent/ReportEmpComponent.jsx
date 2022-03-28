@@ -6,16 +6,16 @@ export default function ReportEmpComponent() {
   const [, setError] = useState();
   const [loading, setLoading] = useState(true);
   const [data_status, setData_status] = useState([]);
-
+  const name_department = localStorage.getItem("name_department");
   useEffect(() => {
-    fetch(`${UrlServer}/apis/get/allemp`)
+    fetch(`${UrlServer}/apis/get/allemp/${name_department}`)
       .then((response) => response.json())
       .then((result) => setData_status(result))
       .then(() => setLoading(false))
       .catch(setError);
   }, []);
 
-  const name_department = localStorage.getItem("name_department");
+ 
   const row = [];
   data_status.forEach((data, key) => {
     row.push({
@@ -160,6 +160,9 @@ export default function ReportEmpComponent() {
       <div className="content">
         <Card>
           <CardBody>
+          {loading ? (
+              <div class="loader"></div>
+            ) : (
             <MDBDataTableV5
               //striped
               hover
@@ -171,6 +174,7 @@ export default function ReportEmpComponent() {
               searchTop
               searchBottom={false}
             />
+            )}
           </CardBody>
         </Card>
       </div>
