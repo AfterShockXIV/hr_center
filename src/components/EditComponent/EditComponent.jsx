@@ -37,16 +37,17 @@ export default function EditComponent(props) {
   //================== file ==============
   const [file, setFile] = useState();
   const [fileName, setFileName] = useState("");
-
-  const id = data_all.hr_run_id;
+  const [OlefileName, setOleFileName] = useState("");
+  const id = props.match.params.hr_run_id;
 
   //=================== onSubmit_input_form ==============
 
   //=========== type file_img=========
-  const old_img = data_all.hr_employee_img;
+
   const saveFile = (e) => {
     setFile(e.target.files[0]);
     setFileName(e.target.files[0].name);
+    setOleFileName(data_all.hr_employee_img)
   };
 
   const uploadFile = async (e) => {
@@ -54,12 +55,9 @@ export default function EditComponent(props) {
     formData.append("file", file);
     formData.append("fileName", fileName);
     formData.append("hr_run_id", id);
-    formData.append("old_image", old_img);
+    formData.append("OlefileName", OlefileName);
     try {
-      const res = await axios.post(
-        "http://localhost:4000/upload_edit",
-        formData
-      );
+      const res = await axios.post(`${UrlServer}/apis/post/update_img_emp_edit`, formData);
       console.log(res);
     } catch (ex) {
       console.log(ex);
@@ -121,9 +119,9 @@ export default function EditComponent(props) {
       status_emp: fe.work,
       hr_password: fe.hr_password,
       job_out: fe.job_out,
-     
     };
 
+    console.log(Data);
     fetch(`${UrlServer}/apis/post/emp_edit`, {
       method: "POST",
       headers: {
@@ -137,9 +135,10 @@ export default function EditComponent(props) {
           swal("Success", result.message, "success", {
             buttons: false,
             timer: 2200,
-          }).then((value) => {
-            window.location.href = "/web/edit_emp/"+props.match.params.hr_run_id
-
+          }).then( async (value) => {
+            await uploadFile();
+            window.location.href =
+              "/web/edit_emp/" + props.match.params.hr_run_id;
           });
         } else {
           swal("แก้ไขตำแหน่งไม่สำเร็จ", result.message, "error");
@@ -148,8 +147,7 @@ export default function EditComponent(props) {
   };
 
   const Click_approve = async (event) => {
-   
-    const Data = {hr_run_id: id}
+    const Data = { hr_run_id: id };
 
     fetch(`${UrlServer}/apis/post/approve_emp`, {
       method: "POST",
@@ -164,9 +162,10 @@ export default function EditComponent(props) {
           swal("Success", result.message, "success", {
             buttons: false,
             timer: 2200,
-          }).then((value) => {
-            window.location.href = "/web/edit_emp/"+props.match.params.hr_run_id
-
+          }).then(async (value) => {
+          
+            window.location.href =
+              "/web/edit_emp/" + props.match.params.hr_run_id;
           });
         } else {
           swal("แก้ไขตำแหน่งไม่สำเร็จ", result.message, "error");
@@ -194,7 +193,6 @@ export default function EditComponent(props) {
       document.getElementById("label_check_date_out").style.display = "none";
       document.getElementById("check_date_out").required = false;
     } else if (data_all.status_emp === "ลาออก") {
-     
       document.getElementById("birthday").disabled = true;
       document.getElementById("cat_6").checked = true;
       document.getElementById("img_emp").disabled = true;
@@ -217,10 +215,9 @@ export default function EditComponent(props) {
       // document.getElementById("cat_5").disabled= true;
       document.getElementById("mail_emp").disabled = true;
       document.getElementById("pass").disabled = true;
-      document.getElementById("btn_submit").disabled = true
-      document.getElementById("btn_approve").disabled = true
-      document.getElementById("check_date_out").disabled = true
-      
+      document.getElementById("btn_submit").disabled = true;
+      document.getElementById("btn_approve").disabled = true;
+      document.getElementById("check_date_out").disabled = true;
     }
   };
 
@@ -293,9 +290,7 @@ export default function EditComponent(props) {
           <Col md="11">
             <Card style={{ marginLeft: "4%" }}>
               <CardHeader style={{ backgroundColor: "#747474", color: "#fff" }}>
-                <h5 className="title">
-                  แก้ไขข้อมูลพนักงาน 
-                </h5>
+                <h5 className="title">แก้ไขข้อมูลพนักงาน</h5>
               </CardHeader>
 
               <CardBody>
@@ -476,7 +471,6 @@ export default function EditComponent(props) {
                       <FormGroup>
                         <label>วัน/เดือน/ปีเกิด</label>
                         <Input
-
                           id="birthday"
                           style={{
                             fontSize: "14px",
@@ -522,7 +516,7 @@ export default function EditComponent(props) {
                           name="id_section"
                           onChange={(e) => setID_section(e.target.value)}
                         >
-                          <option checked value={data_all.id_section}>
+                          <option checked value={data_all.id}>
                             {data_all.eng_section}
                           </option>
                           {hr_section.map((data) => {
@@ -740,9 +734,8 @@ export default function EditComponent(props) {
                     บันทึก
                   </Button>
                   &nbsp; &nbsp;
-
                   <Button
-                   id="btn_approve"
+                    id="btn_approve"
                     type="button"
                     style={{ backgroundColor: "#666666", fontWeight: "bolder" }}
                     onClick={handleOpen_approve}
@@ -755,8 +748,8 @@ export default function EditComponent(props) {
           </Col>
         </Row>
 
-          {/* ============MODAL_return ====================== */}
-          <div>
+        {/* ============MODAL_return ====================== */}
+        <div>
           <Modal
             open={open_approve}
             onClose={handleClose_approve}
@@ -769,9 +762,7 @@ export default function EditComponent(props) {
                 <b>ยืนยันการตรวจสอบข้อมูล</b>
               </h5>
               <br />
-              <h5 className="text-center">
-                ข้อมูลถูกต้อง
-              </h5>
+              <h5 className="text-center">ข้อมูลถูกต้อง</h5>
               <div className="text-center">
                 <Box
                   component="form"

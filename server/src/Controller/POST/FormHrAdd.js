@@ -66,38 +66,4 @@ const FormHrAdd = (req, res, next) => {
 
 module.exports.FormHrAdd = FormHrAdd;
 
-const FormHrIMG = (req, res, next) => {
-  if (!req.files) {
-    console.log("No image");
-    res.redirect("/");
-  } else {
-    let file = req.files.file;
-    let filetype = file.mimetype.split("/")[1];
-    let { hr_employeeid } = req.body;
-    let filename = `IMGEMP_${hr_employeeid}.${filetype}`;
-    let path = "./public/IMG_EMP/";
-    console.log(filename);
 
-    file.mv(`${path}${filename}`, (err) => {
-      if (err) {
-        res.status(500);
-      }
-      res.send(req.files);
-    });
-
-    let update_main =
-      "UPDATE  project_hr set hr_employee_img = '" +
-      filename +
-      "' where hr_employeeid = '" +
-      hr_employeeid +
-      "' ";
-    db.query(update_main, (err, result) => {
-      if (err) {
-        console.log(err);
-        res.redirect("/");
-      }
-    });
-  }
-};
-
-module.exports.FormHrIMG = FormHrIMG;

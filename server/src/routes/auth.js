@@ -21,7 +21,10 @@ router.post('/apis/post/position_edit',Position_edit.Position_edit)
 //===============================================================
 const FormHrAdd = require('../Controller/POST/FormHrAdd')
 router.post('/apis/post/post_form_hr',FormHrAdd.FormHrAdd)
-router.post('/apis/post/update_img_emp',FormHrAdd.FormHrIMG)
+//===============================================================
+const FormHrIMG = require('../Controller/POST/FormHrIMG')
+router.post('/apis/post/update_img_emp',FormHrIMG.FormHrIMG)
+router.post('/apis/post/update_img_emp_edit',FormHrIMG.FormHrEditIMG)
 //===============================================================
 const AllEmp = require('../Controller/GET/AllEmpController')
 router.get('/apis/get/allemp',AllEmp.AllEmp)
