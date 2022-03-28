@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { MDBDataTableV5 } from "mdbreact";
-import { Card,CardBody } from "reactstrap";
+import { Card, CardBody } from "reactstrap";
 import UrlServer from "Configs/PortServer";
-
-
+import { Button } from "@mui/material";
 export default function ReportsectionComponent() {
   const [, setError] = useState();
   const [loading, setLoading] = useState(true);
   const [data_status, setData_status] = useState([]);
-  
+
   // const server = "http://localhost:3010";
-  
 
   useEffect(() => {
     fetch(`${UrlServer}/apis/get/AllSection`)
@@ -20,7 +18,7 @@ export default function ReportsectionComponent() {
       .catch(setError);
   }, []);
 
-//================== แก้ไข ============================
+  //================== แก้ไข ============================
 
   // const check_edit = (hr_employeename ,hr_surname ) => {
   //   console.log("name : " + hr_employeename )
@@ -29,30 +27,44 @@ export default function ReportsectionComponent() {
   // }
   //การ filter
   // const filter_api = data_status.filter((data)=>{
-  //   return data.BANPR === '05'; 
+  //   return data.BANPR === '05';
   // })
 
-
   // const test = 1 ;
-  console.log(data_status)
+  console.log(data_status);
   const row = [];
   data_status.forEach((data, key) => {
-    row.push({ 
-      edit:<div> <a href={"/web/position_edit/"+data.id_section+"/"+data.id_department+"/"+data.id_position}><button type="submit" >แก้ไขข้อมูล</button></a></div>,
+    row.push({
+      edit: (
+        <div>
+          {" "}
+          <a
+            href={
+              "/web/position_edit/" +
+              data.id_section +
+              "/" +
+              data.id_department +
+              "/" +
+              data.id_position
+            }
+          >
+            <Button variant="contained" size="small" type="button" className="button" color="secondary">Click</Button>
+          </a>
+        </div>
+      ),
       //delete:<div ><a href={'http://localhost:4000/delete_position/'+data.id_position} ><button type="button" style={{backgroundColor:"#000", borderColor:"#000"}} onClick ={() => alert("ต้องการลบข้อมูลตำแหน่ง" +data.eng_position)}>ลบข้อมูล</button></a></div>,
-      section:data.eng_section,
-      department:data.eng_department,
-      position_thai:data.	thai_position,
-      position_eng:data.eng_position,
-
-    })
-  })  
+      section: data.eng_section,
+      department: data.eng_department,
+      position_thai: data.thai_position,
+      position_eng: data.eng_position,
+    });
+  });
   const datatable = {
-    columns:[
+    columns: [
       {
         label: "แก้ไขข้อมูล",
         field: "edit",
-        width:  100,
+        width: 100,
       },
       // {
       //   label: "ลบข้อมูล",
@@ -79,9 +91,8 @@ export default function ReportsectionComponent() {
         field: "position_eng",
         width: 150,
       },
-     
     ],
-    rows:row,
+    rows: row,
   };
 
   return (
@@ -89,22 +100,20 @@ export default function ReportsectionComponent() {
       <div className="content">
         <Card>
           <CardBody>
-        <MDBDataTableV5
-        //striped    
-          hover 
-          entriesOptions={[5, 10, 20, 25]}
-          entries={5}
-          pagesAmount={4}
-          scrollX
-          data={datatable}
-          searchTop
-          searchBottom={false}
-        />
-        </CardBody>
-       </Card>
+            <MDBDataTableV5
+              //striped
+              hover
+              entriesOptions={[5, 10, 20, 25]}
+              entries={5}
+              pagesAmount={4}
+              scrollX
+              data={datatable}
+              searchTop
+              searchBottom={false}
+            />
+          </CardBody>
+        </Card>
       </div>
     </>
   );
 }
-
-

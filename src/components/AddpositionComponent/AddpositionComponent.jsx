@@ -146,7 +146,7 @@ export default function AddpositionComponent() {
                     </Col>
                   </Row>
                   <br />
-                  <Button type="submit">ตกลง</Button>
+                  <Button type="submit">บันทึกข้อมูล</Button>
                 </Form>
               </CardBody>
             </Card>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MDBDataTableV5 } from "mdbreact";
 import { Card, CardBody } from "reactstrap";
+import { Button } from "@mui/material";
 import UrlServer from "Configs/PortServer";
 export default function ReportEmpComponent() {
   const [, setError] = useState();
@@ -15,20 +16,19 @@ export default function ReportEmpComponent() {
       .catch(setError);
   }, []);
 
- 
   const row = [];
   data_status.forEach((data, key) => {
     row.push({
       btn_ed: (() => {
-          return (
-            <div>
-              <a href={"/web/edit_emp/" + data.hr_run_id}>
-                <button type="button" className="button">
-                  EDIT
-                </button>
-              </a>
-            </div>
-          );
+        return (
+          <div>
+            <a href={"/web/edit_emp/" + data.hr_run_id}>
+              <Button variant="contained" size="small" type="button" className="button" color="secondary">
+                Click
+              </Button>
+            </a>
+          </div>
+        );
       })(),
       //<div className="button"><button onClick={() => check_edit(data.hr_employeename,data.hr_surname)}>แก้ไข</button></div>,
       // image:<img src={'http://localhost:4000/'+data.hr_em0ployee_img} alt="" style={{height:"60px",width:"60px"}}/>,
@@ -64,7 +64,7 @@ export default function ReportEmpComponent() {
           return (
             <div className="">
               <span style={{ fontSize: "12px" }} class="badge badge-success">
-              approve
+                approve
               </span>
             </div>
           );
@@ -82,7 +82,7 @@ export default function ReportEmpComponent() {
   const datatable = {
     columns: [
       {
-        label: "แก้ไขข้อมูล",
+        label: "ดูข้อมูล",
         field: "btn_ed",
         width: 150,
       },
@@ -160,20 +160,20 @@ export default function ReportEmpComponent() {
       <div className="content">
         <Card>
           <CardBody>
-          {loading ? (
+            {loading ? (
               <div class="loader"></div>
             ) : (
-            <MDBDataTableV5
-              //striped
-              hover
-              entriesOptions={[5, 10, 20, 25]}
-              entries={5}
-              pagesAmount={4}
-              scrollX
-              data={datatable}
-              searchTop
-              searchBottom={false}
-            />
+              <MDBDataTableV5
+                //striped
+                hover
+                entriesOptions={[5, 10, 20, 25]}
+                entries={5}
+                pagesAmount={4}
+                scrollX
+                data={datatable}
+                searchTop
+                searchBottom={false}
+              />
             )}
           </CardBody>
         </Card>

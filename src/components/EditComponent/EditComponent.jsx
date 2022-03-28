@@ -14,6 +14,7 @@ import axios from "axios";
 import UrlServer from "Configs/PortServer";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+import "./EditComponent.scss";
 export default function EditComponent(props) {
   //================ Edit ==============
   const name_department = localStorage.getItem("name_department");
@@ -151,7 +152,7 @@ export default function EditComponent(props) {
   };
 
   const Click_approve = async (event) => {
-    const Data = { hr_run_id : id };
+    const Data = { hr_run_id: id };
 
     fetch(`${UrlServer}/apis/post/approve_emp`, {
       method: "POST",
@@ -300,38 +301,38 @@ export default function EditComponent(props) {
               <CardHeader style={{ backgroundColor: "#747474", color: "#fff" }}>
                 <h5 className="title">แก้ไขข้อมูลพนักงาน</h5>
               </CardHeader>
-
               <CardBody>
                 <form ref={form} onSubmit={input_form}>
                   <Row>
-                    <label>รูปภาพ</label>
-                    <br />
-                    <a
-                      target="_blank"
-                      href={`${UrlServer}/IMG_EMP/${data_all.hr_employee_img}`}
-                      rel="noreferrer"
-                    >
-                      <img
-                        src={`${UrlServer}/IMG_EMP/${data_all.hr_employee_img}`}
-                        alt=""
-                        style={{
-                          height: "150px",
-                          width: "150px",
-                          marginBottom: "10px",
-                        }}
+                    <Col sm="12" className="ImgCenter">
+                      <br />
+                      <a
+                        target="_blank"
+                        href={`${UrlServer}/IMG_EMP/${data_all.hr_employee_img}`}
+                        rel="noreferrer"
+                      >
+                        <img
+                          src={`${UrlServer}/IMG_EMP/${data_all.hr_employee_img}`}
+                          alt=""
+                          style={{
+                            height: "150px",
+                            width: "150px",
+                            marginBottom: "10px",
+                          }}
+                        />
+                      </a>
+                          <br></br>
+                      <input
+                        className="InputFile"
+                        id="img_emp"
+                        type="file"
+                        name="image"
+                        accept="image/*"
+                        onChange={saveFile}
                       />
-                    </a>
-                    <br />
-                    <br />
-                    <br />
-                    <Input
-                      id="img_emp"
-                      type="file"
-                      name="image"
-                      accept="image/*"
-                      onChange={saveFile}
-                    ></Input>
-                    <br /> <br /> <br />
+
+                      <br />
+                    </Col>
                     <Col sm="3">
                       <FormGroup>
                         <label> รหัสพนักงาน</label>
