@@ -194,6 +194,8 @@ export default function EditComponent(props) {
       document.getElementById("label_check_date_out").style.display = "none";
       document.getElementById("check_date_out").required = false;
     } else if (data_all.status_emp === "ลาออก") {
+     
+      document.getElementById("birthday").disabled = true;
       document.getElementById("cat_6").checked = true;
       document.getElementById("img_emp").disabled = true;
       document.getElementById("id_emp").disabled = true;
@@ -474,6 +476,7 @@ export default function EditComponent(props) {
                       <FormGroup>
                         <label>วัน/เดือน/ปีเกิด</label>
                         <Input
+
                           id="birthday"
                           style={{
                             fontSize: "14px",

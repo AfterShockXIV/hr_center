@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   Row,
   Col,
-  Button,
   Form,
   FormGroup,
   Label,
@@ -106,7 +105,7 @@ const uploadFile = async (e) => {
         buttons: false,
         timer: 2200,
       }).then((value) => {
-        window.location.href = "/web/add_position";
+        window.location.href = `/web/add_data/${response.hr_run_id}`;
       });
     } else {
       swal("เพิ่มข้อมูลไม่สำเร็จ", response.message, "error");

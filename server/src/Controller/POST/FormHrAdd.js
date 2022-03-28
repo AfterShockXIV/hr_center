@@ -57,6 +57,7 @@ const FormHrAdd = (req, res, next) => {
         res.send({
           status: "ok",
           message: "เพิ่มข้อมูลสำเร็จ",
+          hr_run_id : result.insertId
         });
       }
     }
