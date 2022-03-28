@@ -23,7 +23,7 @@ const Login_index = () => {
       password
     });
     if ('accessToken' in response) {
-      swal("Success", "User Login : " + response.status, "success", {
+      swal("Success", `User Login : ${response.hr_employeename}  ${response.hr_surname}`, "success", {
         buttons: false,
         timer: 2200,
       })

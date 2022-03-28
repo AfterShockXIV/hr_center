@@ -42,7 +42,6 @@ export default function ReportEmpComponent() {
       //job_start:data.hr_job_start,
       phone: data.hr_phone,
       birthday: data.birthday_emp,
-
       status_emp: (() => {
         if (data.status_emp === "ทำงานอยู่") {
           return (
@@ -60,6 +59,23 @@ export default function ReportEmpComponent() {
           );
         }
       })(),
+      status_approve: (() => {
+        if (data.status_approve === "approve") {
+          return (
+            <div className="">
+              <span style={{ fontSize: "12px" }} class="badge badge-success">
+              approve
+              </span>
+            </div>
+          );
+        } else if (data.status_approve === "wait") {
+          return (
+            <span style={{ fontSize: "12px" }} class="badge badge-danger">
+              wait
+            </span>
+          );
+        }
+      })(),
       mail: data.hr_email_user,
     });
   });
@@ -72,7 +88,7 @@ export default function ReportEmpComponent() {
       },
       {
         label: "Approve",
-        field: "approve",
+        field: "status_approve",
         width: 150,
       },
       {

@@ -22,6 +22,7 @@ const Emp_edit = (req, res, next) => {
     job_out,
   } = req.body;
  
+
   let position_edit =
     "UPDATE project_hr SET hr_employeeid = '" +
     hr_employeeid +
@@ -80,7 +81,6 @@ module.exports.Emp_edit = Emp_edit;
 
 
 const Emp_approve = (req, res, next) => {
-    let {hr_run_id} = req.body
     let position_edit =
     "UPDATE project_hr SET status_approve = 'approve'  WHERE hr_run_id = '" +hr_run_id + "' ";
     db.query(position_edit, (err, result) => {
