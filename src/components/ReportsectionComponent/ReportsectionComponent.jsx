@@ -41,7 +41,7 @@ export default function ReportsectionComponent() {
           <a
             href={
               "/web/position_edit/" +
-              data.id_section +
+              data.id +
               "/" +
               data.id_department +
               "/" +

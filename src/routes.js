@@ -3,6 +3,7 @@ import AddLayout from "layouts/AddLayout/AddLayout";
 import ReportEmpLayout from "layouts/ReportEmpLayout/ReportEmpLayout";
 import ReportsectionLayout from "layouts/ReportsectionLayout/ReportsectionLayout";
 import AddpositionLayout from "layouts/AddpositionLayout/AddpositionLayout";
+import ProfileComponent from "components/ProfileComponent/ProfileComponent";
 const name_department = localStorage.getItem("name_department");
 var routes = [];
 
@@ -11,6 +12,13 @@ if( name_department !== null){
 
 if(name_department.slice(1,-1) === "HRM"){
   routes.push(
+    {
+      path: "/profile",
+      name: "ProFile",
+      icon: "nc-icon nc-world-2",
+      component: ProfileComponent,
+      layout: "/web",
+    },
     {
       path: "/add_data",
       name: "เพิ่มข้อมูล",
@@ -42,6 +50,13 @@ if(name_department.slice(1,-1) === "HRM"){
   )
 }else{
 routes.push(
+  {
+    path: "/profile",
+    name: "ProFile",
+    icon: "nc-icon nc-world-2",
+    component: ProfileComponent,
+    layout: "/web",
+  },
   {
     path: "/report_emp",
     name: "ข้อมูลพนักงาน",

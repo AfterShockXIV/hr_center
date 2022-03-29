@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 const GetAllSection = (req, res, next) => {
-    db.query(`SELECT * FROM hr_department inner join hr_section on (hr_department.id_section = hr_section.id_section) inner join hr_position on (hr_department.id_department = hr_position.id_department) `, (err, result) => {
+    db.query(`SELECT * ,  hr_section.id_section as id  FROM hr_department inner join hr_section on (hr_department.id_section = hr_section.id_section) inner join hr_position on (hr_department.id_department = hr_position.id_department) `, (err, result) => {
         if (err) {
           console.log(err);
         }else{

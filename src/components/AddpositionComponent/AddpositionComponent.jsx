@@ -45,7 +45,13 @@ export default function AddpositionComponent() {
         buttons: false,
         timer: 2200,
       }).then((value) => {
-        window.location.href = "/add_position";
+        window.location.href =
+        "/web/position_edit/" +
+        response.id_section +
+        "/" +
+        response.id_department +
+        "/" +
+        response.id_position;
       });
     } else {
       swal("เพิ่มข้อมูลไม่สำเร็จ", response.message, "error");
