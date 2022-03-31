@@ -717,6 +717,7 @@ export default function EditComponent(props) {
                         <label> รหัสผ่าน</label>
                         <Input
                           id="pass"
+                          type="password"
                           style={{
                             fontSize: "14px",
                             backgroundColor: "#ebecf0",

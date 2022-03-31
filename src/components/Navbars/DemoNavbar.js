@@ -43,7 +43,7 @@ function Header(props) {
       expand="lg"
     >
       <Container fluid>
-        <div className="navbar-wrapper">
+        <div  className="navbar-wrapper">
           <div className="navbar-toggle">
             <button
               type="button"
@@ -58,7 +58,7 @@ function Header(props) {
           </div>
         </div>
         <div style={{ color: "black" , flex: 1}}>
-        <span  className="NavUserFont">User : {`${name.slice(1,-1)}  ${surname.slice(1,-1)}`} </span>
+        <span  className="NavUserFont">ผู้ใช้ระบบ : {`${name.slice(1,-1)}  ${surname.slice(1,-1)}`} </span>
         </div>
        
 

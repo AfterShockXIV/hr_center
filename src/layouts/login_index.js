@@ -34,6 +34,7 @@ const Login_index = () => {
           localStorage.setItem('hr_surname', JSON.stringify(response['hr_surname']));
           localStorage.setItem('hr_run_id', JSON.stringify(response['hr_run_id']));
           localStorage.setItem('hr_employeeid', JSON.stringify(response['hr_employeeid']));
+          localStorage.setItem('id_section', JSON.stringify(response['id_section']));
           window.location.href = "/";
         });
     } else {

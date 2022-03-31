@@ -1,23 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { MDBDataTableV5 } from "mdbreact";
-import { Card, CardBody } from "reactstrap";
+import { Card, CardBody , Input} from "reactstrap";
 import UrlServer from "Configs/PortServer";
 import { Button } from "@mui/material";
 export default function ReportsectionComponent() {
   const [, setError] = useState();
   const [loading, setLoading] = useState(true);
   const [data_status, setData_status] = useState([]);
-
+  const id_section_local = localStorage.getItem("id_section");
+  const [hr_section, setHr_section] = useState([]);
+  const [id_section, setID_section] = useState(id_section_local.slice(1, -1));
   // const server = "http://localhost:3010";
 
   useEffect(() => {
-    fetch(`${UrlServer}/apis/get/AllSection`)
+    fetch(`${UrlServer}/apis/get/All_SectionParams/${id_section}`)
       .then((response) => response.json())
       .then((result) => setData_status(result))
       .then(() => setLoading(false))
       .catch(setError);
-  }, []);
+  }, [id_section]);
 
+  useEffect(() => {
+    fetch(`${UrlServer}/apis/dynamic/dynamic_section`)
+      .then((response) => response.json())
+      .then((result) => setHr_section(result))
+      .catch((Error) => Error);
+  }, []);
   //================== แก้ไข ============================
 
   // const check_edit = (hr_employeename ,hr_surname ) => {
@@ -48,7 +56,15 @@ export default function ReportsectionComponent() {
               data.id_position
             }
           >
-            <Button variant="contained" size="small" type="button" className="button" color="secondary">Click</Button>
+            <Button
+              variant="contained"
+              size="small"
+              type="button"
+              className="button"
+              color="secondary"
+            >
+              Click
+            </Button>
           </a>
         </div>
       ),
@@ -100,17 +116,33 @@ export default function ReportsectionComponent() {
       <div className="content">
         <Card>
           <CardBody>
-            <MDBDataTableV5
-              //striped
-              hover
-              entriesOptions={[5, 10, 20, 25]}
-              entries={5}
-              pagesAmount={4}
-              scrollX
-              data={datatable}
-              searchTop
-              searchBottom={false}
-            />
+            <div>
+              <Input
+                id="txtSec"
+                required
+                type="select"
+                onChange={(e) => setID_section(e.target.value)}
+                style={{ fontSize: "14px" }}
+              >
+                <option value="">เลือกสายงาน</option>
+                {hr_section.map((data) => {
+                  return (
+                    <option value={data.id_section}>{data.eng_section}</option>
+                  );
+                })}
+              </Input>
+              <MDBDataTableV5
+                //striped
+                hover
+                entriesOptions={[5, 10, 20, 25]}
+                entries={5}
+                pagesAmount={4}
+                scrollX
+                data={datatable}
+                searchTop
+                searchBottom={false}
+              />
+            </div>
           </CardBody>
         </Card>
       </div>

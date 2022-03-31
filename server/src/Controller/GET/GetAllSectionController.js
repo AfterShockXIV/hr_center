@@ -4,12 +4,26 @@ const GetAllSection = (req, res, next) => {
         if (err) {
           console.log(err);
         }else{
+           
             res.send(result)
         }
     })
 }
 module.exports.GetAllSection = GetAllSection;
 
+
+const GetAllSectionParams = (req, res, next) => {
+    let {id_section} = req.params
+    db.query(`SELECT * ,  hr_section.id_section as id  FROM hr_department inner join hr_section on (hr_department.id_section = hr_section.id_section) inner join hr_position on (hr_department.id_department = hr_position.id_department) where hr_section.id_section = ${id_section}`, (err, result) => {
+        if (err) {
+          console.log(err);
+        }else{
+           
+            res.send(result)
+        }
+    })
+}
+module.exports.GetAllSectionParams = GetAllSectionParams;
 
 const GetAllParams = (req, res, next) => {
     let {id_section , id_department , id_position} = req.params

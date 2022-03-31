@@ -1,35 +1,22 @@
-import React, { useState, useEffect, useRef } from "react";
-import ReactRelationGraph from "react-relation-graph";
-import { Canvas } from "reaflow";
+import React, { useState, useEffect} from "react";
 import {
   Row,
   Col,
-  Button,
   FormGroup,
   Input,
   Card,
   CardHeader,
   CardBody,
 } from "reactstrap";
-import swal from "sweetalert";
-import axios from "axios";
+
 import UrlServer from "Configs/PortServer";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
+
 const ProfileComponent = (props) => {
   //================ Edit ==============
-  const name_department = localStorage.getItem("name_department");
-  const form = useRef();
-  const [open_approve, setOpen_approve] = useState(false);
-  const handleOpen_approve = () => setOpen_approve(true);
-  const handleClose_approve = () => {
-    setOpen_approve(false);
-  };
 
   //======= ID Dynamic ====================================
   const [id_section, setID_section] = useState("");
   const [id_department, setID_department] = useState("");
-  const [id_position, setID_position] = useState("");
 
   //================เก็บค่าจาก API =====================
   const [hr_section, setHr_section] = useState([]);
@@ -107,200 +94,7 @@ const ProfileComponent = (props) => {
   return (
     <>
       <div className="content" onLoad={Set_edit()}>
-        <div style={{ overflow: "scroll", width: "100%" }}>
-          <Canvas
-            maxWidth={2500}
-            maxHeight={1000}
-            nodes={[
-              {
-                id: "1",
-                text: "ผอ.",
-              },
-              {
-                id: "2",
-                text: "ผจก.DTM",
-              },
-              {
-                id: "3",
-                text: "ผจก.ECM",
-              },
-              {
-                id: "4",
-                text: "ผช.DTM",
-              },
-              {
-                id: "5",
-                text: "ผช.ECM",
-              },
-              {
-                id: "6",
-                text: `แผนก Information Technology`, //\nหัวหน้าแผนก (Supervisor)
-              },
-              {
-                id: "7",
-                text: `แผนก Software Development`, //\nหัวหน้าแผนก (Supervisor)
-              },
-              {
-                id: "8",
-                text: "แผนก Online Platform",
-              },
-              {
-                id: "9",
-                text: `หัวหน้าแผนก (Supervisor)`, //\nหัวหน้าแผนก (Supervisor)
-              },
-              {
-                id: "10",
-                text: `หัวหน้าแผนก (Supervisor)`, //\nหัวหน้าแผนก (Supervisor)
-              },
-              {
-                id: "11",
-                text: "หัวหน้าแผนก (Supervisor)",
-              },
-              {
-                id: "12",
-                text: "Security & Admin System",
-              },
-              {
-                id: "13",
-                text: "IT Technician & Network",
-              },
-              {
-                id: "14",
-                text: "IT Support",
-              },
-              {
-                id: "15",
-                text: "Electrical Engineer",
-              },
-              {
-                id: "16",
-                text: "ABAPER SAP",
-              },
-              {
-                id: "17",
-                text: "SAP Functional",
-              },
-              {
-                id: "18",
-                text: "Web & App Programmer",
-              },
-              {
-                id: "19",
-                text: "Web & App Programmer ",
-              },
-              {
-                id: "20",
-                text: "Functional  Platform",
-              },
-              {
-                id: "21",
-                text: "Marketing Technologist",
-              },
-            ]}
-            edges={[
-              {
-                id: "1-2",
-                from: "1",
-                to: "2",
-              },
-              {
-                id: "1-3",
-                from: "1",
-                to: "3",
-              },
-              {
-                id: "2-4",
-                from: "2",
-                to: "4",
-              },
-              {
-                id: "3-5",
-                from: "3",
-                to: "5",
-              },
-              {
-                id: "4-6",
-                from: "4",
-                to: "6",
-              },
-              {
-                id: "4-7",
-                from: "4",
-                to: "7",
-              },
-              {
-                id: "5-8",
-                from: "5",
-                to: "8",
-              },
-              {
-                id: "6-9",
-                from: "6",
-                to: "9",
-              },
-              {
-                id: "7-10",
-                from: "7",
-                to: "10",
-              },
-              {
-                id: "8-11",
-                from: "8",
-                to: "11",
-              },
-              {
-                id: "9-12",
-                from: "9",
-                to: "12",
-              },
-              {
-                id: "9-13",
-                from: "9",
-                to: "13",
-              },
-              {
-                id: "9-14",
-                from: "9",
-                to: "14",
-              },
-              {
-                id: "9-15",
-                from: "9",
-                to: "15",
-              },
-              {
-                id: "10-16",
-                from: "10",
-                to: "16",
-              },
-              {
-                id: "10-17",
-                from: "10",
-                to: "17",
-              },
-              {
-                id: "10-18",
-                from: "10",
-                to: "18",
-              },
-              {
-                id: "11-19",
-                from: "11",
-                to: "19",
-              },
-              {
-                id: "11-20",
-                from: "11",
-                to: "20",
-              },
-              {
-                id: "11-21",
-                from: "11",
-                to: "21",
-              },
-            ]}
-          />
-        </div>
+       
         <Row>
           <Col md="11">
             <Card style={{ marginLeft: "4%" }}>

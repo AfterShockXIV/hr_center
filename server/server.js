@@ -22,7 +22,7 @@ app.use(
     secret: "secret_session",
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: oneDay }
+    cookie: { maxAge: oneDay },
   })
 );
 app.use(authRoute);
@@ -67,7 +67,7 @@ app.post("/postApi/Login/Checklogin", (req, res) => {
         hr_employeeid +
         "' and project_hr.hr_password = '" +
         password +
-        "' ";
+        "' and status_approve = 'approve' ";
       db.query(data, (err, result) => {
         console.log(result);
         if (err) {
@@ -87,11 +87,12 @@ app.post("/postApi/Login/Checklogin", (req, res) => {
               message: "Logged in",
               accessToken: tokentext,
               session_login: true,
-              hr_run_id : result[0].hr_run_id,
-              hr_employeeid : result[0].hr_employeeid,
-              hr_employeename : result[0].hr_employeename,
-              hr_surname : result[0].hr_surname,
-              name_department : result[0].name_department
+              hr_run_id: result[0].hr_run_id,
+              hr_employeeid: result[0].hr_employeeid,
+              hr_employeename: result[0].hr_employeename,
+              hr_surname: result[0].hr_surname,
+              name_department: result[0].name_department,
+              id_section: result[0].id_section,
             });
           }
         }
