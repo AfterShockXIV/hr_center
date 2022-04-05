@@ -57,12 +57,12 @@ function Header(props) {
             </button>
           </div>
         </div>
-        <div style={{ color: "black" , flex: 1}}>
+        {/* <div style={{ color: "black" , flex: 1}}>
         <span  className="NavUserFont">ผู้ใช้ระบบ : {`${name.slice(1,-1)}  ${surname.slice(1,-1)}`} </span>
-        </div>
+        </div> */}
        
 
-        <IconButton
+        {/* <IconButton
           title="LOGOUT"
           aria-label="LOGOUT"
           size="small"
@@ -71,7 +71,7 @@ function Header(props) {
           onClick={handleLogout}
         >
           < LogoutIcon fontSize="inherit" />LOGOUT
-        </IconButton>
+        </IconButton> */}
 
       </Container>
     </Navbar>

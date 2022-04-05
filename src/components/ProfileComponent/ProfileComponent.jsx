@@ -426,7 +426,7 @@ const ProfileComponent = (props) => {
                               name="cat_em"
                             />
                             <label>รายวัน</label>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            {/* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <Input
                               disabled
                               id="cat_3"
@@ -452,14 +452,14 @@ const ProfileComponent = (props) => {
                               value="ผู้ช่วยผู้จัดการ"
                               name="cat_em"
                             />
-                            <label>ผู้ช่วยผู้จัดการ</label>
+                            <label>ผู้ช่วยผู้จัดการ</label> */}
                           </div>
                         </div>
                       </FormGroup>
                     </Col>
                     <Col sm="6">
                       <FormGroup>
-                        <label> E-mail</label>
+                        <label>Address E-mail</label>
                         <Input
                           disabled
                           id="mail_emp"
@@ -521,7 +521,7 @@ const ProfileComponent = (props) => {
 
                     <Col sm="6">
                       <FormGroup>
-                        <label> รหัสผ่าน</label>
+                        <label>รหัสผ่านของเว็บ</label>
                         <Input
                           disabled
                           id="pass"
@@ -531,7 +531,6 @@ const ProfileComponent = (props) => {
                             color: "red",
                           }}
                           //type="password"
-
                           name="hr_password"
                           defaultValue={data_all.hr_password}
                           placeholder="Password"

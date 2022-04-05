@@ -339,7 +339,7 @@ const AsstManager = () => {
                             onChange={(e) => setHr_Emp(e.target.value)}
                           />{" "}
                           <label>รายวัน</label>
-                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          {/* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           <Input
                           onClick={director}
                             type="radio"
@@ -348,8 +348,8 @@ const AsstManager = () => {
                             name="cat_em"
                             onChange={(e) => setHr_Emp(e.target.value)}
                           />
-                          <label>ผู้อำนวยการ</label>
-                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          <label>ผู้อำนวยการ</label> */}
+                          {/* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           <Input
                           onClick={manager}
                             type="radio"
@@ -369,7 +369,7 @@ const AsstManager = () => {
                             name="cat_em"
                             onChange={(e) => setHr_Emp(e.target.value)}
                           />
-                          <label>ผู้ช่วยผู้จัดการ</label>
+                          <label>ผู้ช่วยผู้จัดการ</label> */}
                         </div>
                       </FormGroup>
                     </Col>
@@ -443,7 +443,7 @@ const AsstManager = () => {
                   <Row>
                     <Col sm="6">
                       <FormGroup>
-                        <label> E-mail</label>
+                        <label>Address E-mail</label>
                         <Input
                           type="email"
                           placeholder="E-mail"
@@ -454,11 +454,11 @@ const AsstManager = () => {
                     </Col>
                     <Col sm="6">
                       <FormGroup>
-                        <Label> รหัสผ่าน</Label>
+                        <Label>รหัสผ่านของเว็บ</Label>
                         <Input
                           type="text"
                           // type="password"
-                          placeholder="รหัสผ่าน"
+                          placeholder="รหัสผ่านของเว็บ"
                           onChange={(e) => setHr_Password(e.target.value)}
                           style={{ fontSize: "12px" }}
                         />

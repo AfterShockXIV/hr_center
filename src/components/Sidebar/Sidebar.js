@@ -1,11 +1,12 @@
-
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Nav } from "reactstrap";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
 import logo from "logo.svg";
-
+import "./Sidebar.scss";
+import IconButton from "@mui/material/IconButton";
+import LogoutIcon from "@mui/icons-material/Logout";
 var ps;
 
 function Sidebar(props) {
@@ -27,8 +28,13 @@ function Sidebar(props) {
       }
     };
   });
-
-
+  const handleLogout = () => {
+ 
+    localStorage.clear()
+    window.location.href = "/";
+  };
+  const name = localStorage.getItem("hr_employeename");
+  const surname = localStorage.getItem("hr_surname");
   return (
     <div
       className="sidebar"
@@ -44,23 +50,15 @@ function Sidebar(props) {
             <img src={logo} alt="react-logo" />
           </div>
         </a>
-        <a
-          href="/"
-          className="simple-text logo-normal"
-        >HR VENINE
+        <a href="/" className="simple-text logo-normal">
+          HR VENINE
         </a>
       </div>
-  
 
-      <div>
-
-      </div>
       <div className="sidebar-wrapper" ref={sidebar}>
-
         <Nav>
           {props.routes.map((prop, key) => {
             return (
-
               <li
                 className={
                   activeRoute(prop.path) + (prop.pro ? " active-pro" : "")
@@ -73,14 +71,28 @@ function Sidebar(props) {
                   activeClassName="active"
                 >
                   <i className={prop.icon} />
-                  <p style={{fontSize:"16px"}}>{prop.name}</p>
+                  <p style={{ fontSize: "16px" }}>{prop.name}</p>
                 </NavLink>
               </li>
-
             );
           })}
         </Nav>
-
+        <div class="User-bottom">
+        <span >ผู้ใช้ระบบ : {`${name.slice(1,-1)}  ${surname.slice(1,-1)}`} </span>
+        </div>
+        <div class="iBannerFix">
+          <IconButton
+            title="LOGOUT"
+            aria-label="LOGOUT"
+            size="small"
+            color="error"
+            // style={{position: 'absolute', right: 10}}
+            onClick={handleLogout}
+          >
+            <LogoutIcon fontSize="inherit" />
+            LOGOUT
+          </IconButton>
+        </div>
       </div>
     </div>
   );

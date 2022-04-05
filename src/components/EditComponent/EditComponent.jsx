@@ -621,7 +621,7 @@ export default function EditComponent(props) {
                               name="cat_em"
                             />
                             <label>รายวัน</label>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            {/* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <Input
                               onClick={director}
                               id="cat_3"
@@ -647,14 +647,14 @@ export default function EditComponent(props) {
                               value="ผู้ช่วยผู้จัดการ"
                               name="cat_em"
                             />
-                            <label>ผู้ช่วยผู้จัดการ</label>
+                            <label>ผู้ช่วยผู้จัดการ</label> */}
                           </div>
                         </div>
                       </FormGroup>
                     </Col>
                     <Col sm="6">
                       <FormGroup>
-                        <label> E-mail</label>
+                        <label>Address E-mail</label>
                         <Input
                           id="mail_emp"
                           style={{
@@ -714,7 +714,7 @@ export default function EditComponent(props) {
 
                     <Col sm="6">
                       <FormGroup>
-                        <label> รหัสผ่าน</label>
+                        <label>รหัสผ่านของเว็บ</label>
                         <Input
                           id="pass"
                           type="password"
