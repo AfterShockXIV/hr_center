@@ -35,8 +35,10 @@ router.get('/apis/get/allempedit/:hr_run_id',AllEmp.AllEmpParams)
 const EmpEdit = require('../Controller/POST/EmpEdit')
 router.post('/apis/post/emp_edit',EmpEdit.Emp_edit)
 router.post('/apis/post/approve_emp',EmpEdit.Emp_approve)
-
+//================================================================
 const RelationData = require('../Controller/GET/RelationController')
 router.get('/apis/get/RelationData/:id_section',RelationData.RelationData)
-
+//================================================================
+const Excel = require('../Controller/GET/ExcelController')
+router.get('/apis/get/excel',Excel.Excel_read)
 module.exports = router;

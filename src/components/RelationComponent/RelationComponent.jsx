@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Canvas, Node, Icon } from "reaflow";
+import { Canvas, Node, Icon, NodeProps } from "reaflow";
 import { Label, Input, Card, CardBody } from "reactstrap";
 import UrlServer from "Configs/PortServer";
 import "./RelationComponent.scss";
@@ -109,13 +109,12 @@ const ProfileComponent = (props) => {
                 </pre>
 
                 <Canvas
-                  maxWidth={3000}
+                  maxWidth={4000}
                   maxHeight={2000}
                   node={
                     <Node
-                      onclick={() => {
-                        console.log("test");
-                      }}
+                      dragType="all"
+                      
                       style={{ fontSize: 30 }}
                       icon={<Icon />}
                     >
@@ -134,7 +133,7 @@ const ProfileComponent = (props) => {
                     </Node>
                   }
                   maxZoom={0.2}
-                  minZoom={-0.9}
+                  minZoom={-1}
                   zoom={zoom}
                   ref={ref}
                   arrow={null}
@@ -143,7 +142,7 @@ const ProfileComponent = (props) => {
                   onZoomChange={(z) => {
                     setZoom(z);
                   }}
-                  onLayoutChang={(layout) => console.log(layout)}
+                  // onLayoutChang={(layout) => console.log(layout)}
                 />
               </div>
             </div>
