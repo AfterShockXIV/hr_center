@@ -20,7 +20,7 @@ const RelationData = (req, res, next) => {
 
         // let Name_po = res
         db.query(
-          `SELECT * ,  hr_section.id_section as id  FROM hr_department inner join hr_section on (hr_department.id_section = hr_section.id_section) inner join hr_position on (hr_department.id_department = hr_position.id_department)  LEFT JOIN project_hr on (project_hr.id_position = hr_position.id_position) WHERE hr_section.id_section = ${id_section}`,
+          `SELECT * , hr_section.id_section as id  FROM hr_department inner join hr_section on (hr_department.id_section = hr_section.id_section) inner join hr_position on (hr_department.id_department = hr_position.id_department)  LEFT JOIN project_hr on (project_hr.id_position = hr_position.id_position) WHERE  hr_section.id_section = ${id_section}`,
           (err, result) => {
             if (err) {
               console.log(err);
@@ -64,26 +64,29 @@ const RelationData = (req, res, next) => {
 
               let EdgesData = [];
 
-             IDdepartmentMAP.forEach(async (res, key) => {
-              await NodeData[key].forEach((data) => {
+              IDdepartmentMAP.forEach(async (res, key) => {
+                await NodeData[key].forEach((data) => {
                   // console.log(data);
+
                   if (data.hr_employeename !== null) {
-                    filter_depart.push({
-                      id: data.toLevel,
-                      height: 125,
-                      width: 300,
-                      text: `${data.hr_employeename} ${data.hr_surname}`,
-                      textSize: "18px",
-                      data: {
-                        position: `${data.thai_position} `,
-                      },
-                      icon: {
-                        url: `http://localhost:5000/IMG_EMP/${data.hr_employee_img}`,
-                        height: 60,
-                        width: 60,
-                        float: "left",
-                      },
-                    });
+                    if (data.status_emp === "ทำงานอยู่") {
+                      filter_depart.push({
+                        id: data.toLevel,
+                        height: 125,
+                        width: 300,
+                        text: `${data.hr_employeename} ${data.hr_surname}`,
+                        textSize: "18px",
+                        data: {
+                          position: `${data.thai_position} `,
+                        },
+                        icon: {
+                          url: `http://localhost:5000/IMG_EMP/${data.hr_employee_img}`,
+                          height: 60,
+                          width: 60,
+                          float: "left",
+                        },
+                      });
+                    }
                   } else {
                     filter_depart.push({
                       id: data.toLevel,
