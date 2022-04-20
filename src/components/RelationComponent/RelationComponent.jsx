@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Canvas, Node, Icon, NodeProps } from "reaflow";
+import { Canvas, Node, Icon} from "reaflow";
 import { Label, Input, Card, CardBody } from "reactstrap";
 import UrlServer from "Configs/PortServer";
 import "./RelationComponent.scss";

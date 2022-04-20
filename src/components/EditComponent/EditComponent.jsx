@@ -219,8 +219,8 @@ export default function EditComponent(props) {
       document.getElementById("po").disabled = true;
       document.getElementById("cat_1").disabled = true;
       document.getElementById("cat_2").disabled = true;
-      document.getElementById("cat_3").disabled = true;
-      document.getElementById("cat_4").disabled = true;
+      // document.getElementById("cat_3").disabled = true;
+      // document.getElementById("cat_4").disabled = true;
       // document.getElementById("cat_5").disabled= true;
       document.getElementById("mail_emp").disabled = true;
       document.getElementById("pass").disabled = true;
