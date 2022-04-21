@@ -22,14 +22,12 @@
 const xlsxFile = require("read-excel-file/node");
 
 const Excel_read = async (req, res, next) => {
-
   // async function INSERT_Data() {
-  //   await xlsxFile("./public/Excel/AFD.xlsx").then((rows) => {
+  //   await xlsxFile("./public/Excel/OSM.xlsx").then((rows) => {
   //     console.table(rows[1]);
   //     let status_approve = "wait";
   //     let hr_emp = "รายเดือน";
   //     let job_out = "-";
-
   //     rows.forEach(async (data) => {
   //       let job_start = `-`;
   //       let hbd = `-`;
@@ -42,7 +40,6 @@ const Excel_read = async (req, res, next) => {
   //         let yy_job = data[10].slice(6, 10);
   //         job_start = `${yy_job}-${mm_job}-${dd_job}`;
   //       }
-
   //       if (data[18] instanceof Date) {
   //         let dd_bd = new Date(data[18]).toISOString().slice(0, 10);
   //         hbd = `${dd_bd}`;
@@ -52,7 +49,6 @@ const Excel_read = async (req, res, next) => {
   //         let yy_bd = data[18].slice(6, 10);
   //         hbd = `${yy_bd}-${mm_bd}-${dd_bd}`;
   //       }
-
   //       // console.log(hbd);
   //       // console.log(job_start);
   //       // console.log("============");
@@ -93,7 +89,6 @@ const Excel_read = async (req, res, next) => {
   //     });
   //   });
   // }
-
   // await INSERT_Data()
   // await res.send({
   //   status: "ok",
