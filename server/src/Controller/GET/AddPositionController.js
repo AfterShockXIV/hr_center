@@ -69,7 +69,7 @@ const Add_position = (req, res, next) => {
                 }
                 let toLevel = "";
                 let formLevel = "";
-                if (cat_emp === "Emp") {
+                if (cat_emp === "Emp" || cat_emp === "EmpDay") {
                   toLevel = `${cat_emp}_${id_position}`;
                   formLevel = `Sup_${id_department}_${id_supervisor}`;
                 } else if (cat_emp === "Ass") {
