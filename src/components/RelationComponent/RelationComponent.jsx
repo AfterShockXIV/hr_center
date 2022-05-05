@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Canvas, Node, Icon} from "reaflow";
+import { Canvas, Node, Icon } from "reaflow";
 import { Label, Input, Card, CardBody } from "reactstrap";
 import UrlServer from "Configs/PortServer";
 import "./RelationComponent.scss";
@@ -33,7 +33,7 @@ const ProfileComponent = (props) => {
   let hr_section_filter = hr_section.filter((data) => {
     return data.name_section !== "Dr";
   });
-
+  let arr2 = [1, 2]
   return (
     <>
       <div className="content">
@@ -114,7 +114,7 @@ const ProfileComponent = (props) => {
                   node={
                     <Node
                       dragType="all"
-                      
+
                       style={{ fontSize: 30 }}
                       icon={<Icon />}
                     >
@@ -124,9 +124,11 @@ const ProfileComponent = (props) => {
                           width={event.width}
                         >
                           <div style={{ textAlign: "center", padding: 10 }}>
-                            <span style={{ color: "white", fontSize: "16px" }}>
-                              {event.node.data.position}
-                            </span>
+                          <div style={{ color: "white", fontSize: "16px" }}>{event.node.data[0]}</div>
+                          <div style={{ color: "#CCCCCC", fontSize: "16px" }}>{event.node.data[1]}</div>
+                          <div style={{ color: "#CCCCCC", fontSize: "16px" }}>{event.node.data[3]}</div>
+                          <div style={{ color: "#CCCCCC", fontSize: "16px" }}>{event.node.data[4]}</div>
+                          <div style={{ color: "#CCCCCC", fontSize: "16px" }}>{event.node.data[5]}</div>
                           </div>
                         </foreignObject>
                       )}
@@ -142,7 +144,7 @@ const ProfileComponent = (props) => {
                   onZoomChange={(z) => {
                     setZoom(z);
                   }}
-                  // onLayoutChang={(layout) => console.log(layout)}
+                // onLayoutChang={(layout) => console.log(layout)}
                 />
               </div>
             </div>
