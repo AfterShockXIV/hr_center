@@ -7,8 +7,9 @@ import {
   Card,
   CardHeader,
   CardBody,
+  Button,
 } from "reactstrap";
-
+import axios from "axios";
 import UrlServer from "Configs/PortServer";
 
 const ProfileComponent = (props) => {
@@ -23,7 +24,9 @@ const ProfileComponent = (props) => {
   const [hr_department, setHr_department] = useState([]);
   const [hr_position, setHr_position] = useState([]);
   const [data_all, setData_all] = useState([]);
-
+  const [file, setFile] = useState();
+  const [fileName, setFileName] = useState("");
+  const [OlefileName, setOleFileName] = useState("");
   //================== file ==============
   const local_hr_run_id = localStorage.getItem("hr_run_id");
   //=================== onSubmit_input_form ==============
@@ -88,6 +91,32 @@ const ProfileComponent = (props) => {
   };
   //=========== return ==========================
 
+  //=========== type file_img=========
+
+  const saveFile = (e) => {
+    setFile(e.target.files[0]);
+    setFileName(e.target.files[0].name);
+    setOleFileName(data_all.hr_employee_img);
+  };
+
+  const uploadFile = async (e) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("fileName", fileName);
+    formData.append("hr_run_id", local_hr_run_id);
+    formData.append("OlefileName", OlefileName);
+    try {
+      const res = await axios.post(
+        `${UrlServer}/apis/post/update_img_emp_edit`,
+        formData
+      );
+      console.log(res);
+    } catch (ex) {
+      console.log(ex);
+    }
+  };
+
+  
   // ใส่ name ให้กับ type
   // image,hr_employeeid,number_emp,hr_job_start,hr_employeename,hr_surname,hr_employee_eng,hr_lastname_eng,hr_nickname,birthday_emp,hr_phone,id_section,id_department,id_position,cat_em,hr_email_user,work,job_out,Password,
 
@@ -99,7 +128,7 @@ const ProfileComponent = (props) => {
           <Col md="11">
             <Card style={{ marginLeft: "4%" }}>
               <CardHeader style={{ backgroundColor: "#747474", color: "#fff" }}>
-                <h5 className="title">แก้ไขข้อมูลพนักงาน</h5>
+                <h5 className="title">Profile</h5>
               </CardHeader>
               <CardBody>
                 <form onSubmit={Set_edit()}>
@@ -122,7 +151,27 @@ const ProfileComponent = (props) => {
                         />
                       </a>
                       <br></br>
-
+                   
+                      <input
+                        className="InputFile"
+                        id="img_emp"
+                        type="file"
+                        name="image"
+                        accept="image/*"
+                        onChange={saveFile}
+                      />
+                        <Button
+                          id="btn_submit"
+                          type="submit"
+                          style={{
+                            backgroundColor: "#ff3636",
+                            fontSize: "12.5px",
+                            fontWeight: "bolder",
+                          }}
+                          onClick={uploadFile}
+                        >
+                          บันทึกรููป
+                        </Button>
                       <br />
                     </Col>
                     <Col sm="3">

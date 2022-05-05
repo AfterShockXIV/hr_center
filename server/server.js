@@ -33,7 +33,7 @@ const port = 5000;
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "123456",
+  password: "",
   database: "form_hr",
 });
 db.connect((err) => {
