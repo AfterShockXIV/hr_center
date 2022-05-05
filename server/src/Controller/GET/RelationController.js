@@ -3,17 +3,19 @@ const RelationData = (req, res, next) => {
   let { id_section } = req.params;
   console.log(id_section);
   db.query(
-    //`SELECT * FROM hr_position  LEFT JOIN project_hr on (project_hr.id_position = hr_position.id_position) where hr_position.id_section = ${id_section} and hr_position.id_department = '26' `,
-    `SELECT * FROM hr_position  where hr_position.id_section = ${id_section} and hr_position.id_department = '26' `,
+    `SELECT * FROM hr_position  LEFT JOIN project_hr on (project_hr.id_position = hr_position.id_position) where hr_position.id_section = ${id_section} and hr_position.id_department = '26' `,
+    // `SELECT * FROM hr_position where hr_position.id_section = ${id_section} and hr_position.id_department = '26' `,
     (err, result) => {
       if (err) {
         console.log(err);
       } else {
+        console.log(result)
         let hr_employeename = `${result[0].hr_employeename} ${result[0].hr_surname}`;
         // if (result[0].hr_employeename === null) {
         //   hr_employeename = `ว่าง`;
         // }
         // let hr_employee_img = result[0].hr_employee_img;
+      
         let thai_position = result[0].thai_position;
         let MD_toLevel = result[0].toLevel;
         let MD_Text = result[0].thai_position;
@@ -30,12 +32,12 @@ const RelationData = (req, res, next) => {
               let db_2 = result
               db.query(
                 //`SELECT * , hr_section.id_section as id  FROM hr_department inner join hr_section on (hr_department.id_section = hr_section.id_section) inner join hr_position on (hr_department.id_department = hr_position.id_department)  LEFT JOIN project_hr on (project_hr.id_position = hr_position.id_position) WHERE  hr_section.id_section = ${id_section}`,
-                `SELECT * FROM project_hr  `,
+                `SELECT * FROM project_hr`,
                 (err, result) => {
                   if (err) {
                     console.log(err);
                   } else {
-                    let db_3 = result 
+                    let db_3 = result
                     let IDdepartment = [];
                     db_2.forEach((data) => {
                       IDdepartment.push({
@@ -61,10 +63,11 @@ const RelationData = (req, res, next) => {
                         id: MD_toLevel,
                         height: 100,
                         width: 300,
-                        test: thai_position,
-                        data: [MD_Text],
+                        
+                        data: [MD_Text,hr_employeename],
                       },
                     ]; // ได้ค่าของ ทั้งสองฝ่ายแล้ว
+
 
                     let EdgesData = [];
 
@@ -72,24 +75,23 @@ const RelationData = (req, res, next) => {
                     IDdepartmentMAP.forEach(async (res, key) => {
                       await NodeData[key].forEach((data) => {
                         // console.log(data)
-                
-                        let memberFilter =  db_3.filter((data_f,key) => {
-                         // console.log(data_f.id_position)
+                        let memberFilter = db_3.filter((data_f, key) => {
+                          // console.log(data_f.id_position)
                           return data_f.id_position == data.id_position
                         })
-                        
+
                         let memberArray = []
 
                         memberFilter.forEach(index => {
-                          if(index.id_position == data.id_position){
+                          if (index.id_position == data.id_position) {
                             console.log('มี')
-                            memberArray.push(`${index.hr_employeename} ${index.hr_surname} รหัสพนักงาน ${index.hr_employeeid}`)
-                          }else{
+                            memberArray.push(`${index.hr_employeename} ${index.hr_surname} : รหัสพนักงาน ${index.hr_employeeid}`)
+                          } else {
                             //memberArray.push(`ว่าง`)
                           }
                         });
                         console.log(memberArray)
-                        
+
                         filter_depart.push({
                           id: data.toLevel,
                           height: 125,
