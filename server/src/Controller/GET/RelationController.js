@@ -11,10 +11,10 @@ const RelationData = (req, res, next) => {
       } else {
         console.log(result)
         let hr_employeename = `${result[0].hr_employeename} ${result[0].hr_surname}`;
-        // if (result[0].hr_employeename === null) {
-        //   hr_employeename = `ว่าง`;
-        // }
-        // let hr_employee_img = result[0].hr_employee_img;
+        if (result[0].hr_employeename === null) {
+          hr_employeename = `ว่าง`;
+        }
+        let hr_employee_img = result[0].hr_employee_img;
       
         let thai_position = result[0].thai_position;
         let MD_toLevel = result[0].toLevel;
@@ -90,7 +90,7 @@ const RelationData = (req, res, next) => {
                             //memberArray.push(`ว่าง`)
                           }
                         });
-                        console.log(memberArray)
+                        
 
                         filter_depart.push({
                           id: data.toLevel,
@@ -99,7 +99,7 @@ const RelationData = (req, res, next) => {
                           // text: ,
                           data: [`${data.thai_position}`, memberArray],
                         });
-
+                        console.log(memberArray)
                         EdgesData.push({
                           id: `${data.formLevel} to ${data.toLevel}`,
                           from: data.formLevel,

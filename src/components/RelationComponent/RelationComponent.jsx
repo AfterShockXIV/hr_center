@@ -123,12 +123,11 @@ const ProfileComponent = (props) => {
                           height={event.height}
                           width={event.width}
                         >
+                         
                           <div style={{ textAlign: "center", padding: 10 }}>
-                          <div style={{ color: "white", fontSize: "16px" }}>{event.node.data[0]}</div>
-                          <div style={{ color: "#CCCCCC", fontSize: "16px" }}>{event.node.data[1]}</div>
-                          <div style={{ color: "#CCCCCC", fontSize: "16px" }}>{event.node.data[3]}</div>
-                          <div style={{ color: "#CCCCCC", fontSize: "16px" }}>{event.node.data[4]}</div>
-                          <div style={{ color: "#CCCCCC", fontSize: "16px" }}>{event.node.data[5]}</div>
+                          <div style={{ color: "white", fontSize: "18px" }}>{event.node.data[0]}</div>
+                          <div style={{ color: "#CCCCCC", fontSize: "17px" }}>{event.node.data[1]}</div>
+                 
                           </div>
                         </foreignObject>
                       )}
