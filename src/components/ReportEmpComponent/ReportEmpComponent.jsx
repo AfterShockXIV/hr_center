@@ -11,8 +11,6 @@ export default function ReportEmpComponent() {
   const id_section_local = localStorage.getItem("id_section");
   const [hr_section, setHr_section] = useState([]);
   const [id_section, setID_section] = useState(id_section_local.slice(1, -1));
-  const [name_section , setName_section] = useState("")
-  console.log(name_section)
   useEffect(() => {
     fetch(`${UrlServer}/apis/get/allemp/${name_department}/${id_section}`)
       .then((response) => response.json())
