@@ -5,7 +5,7 @@ import UrlServer from "Configs/PortServer";
 import { Button } from "@mui/material";
 export default function ReportsectionComponent() {
   const [, setError] = useState();
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const [data_status, setData_status] = useState([]);
   const id_section_local = localStorage.getItem("id_section");
   const [hr_section, setHr_section] = useState([]);

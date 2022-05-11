@@ -4,8 +4,7 @@ import {
   Navbar,
   Container,
 } from "reactstrap";
-import IconButton from '@mui/material/IconButton';
-import LogoutIcon from '@mui/icons-material/Logout';
+
 import './Navbar.scss'
 
 function Header(props) {
@@ -27,14 +26,14 @@ function Header(props) {
       sidebarToggle.current.classList.toggle("toggled");
     }
   }, [location]);
-  const handleLogout = () => {
+  // const handleLogout = () => {
  
-    localStorage.clear()
-    window.location.href = "/";
-  };
+  //   localStorage.clear()
+  //   window.location.href = "/";
+  // };
 
-  const name = localStorage.getItem("hr_employeename");
-  const surname = localStorage.getItem("hr_surname");
+  // const name = localStorage.getItem("hr_employeename");
+  // const surname = localStorage.getItem("hr_surname");
   
   return (
 

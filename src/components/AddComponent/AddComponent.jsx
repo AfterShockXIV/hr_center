@@ -24,7 +24,7 @@ export default function AddComponent() {
   const [hr_job_start, setHr_Job_Start] = useState("");
   const [hr_email_user, setHr_Email_User] = useState("");
   const [hr_password, setHr_Password] = useState("");
-  const [hr_employee_img, setHr_Eployee_Img] = useState("");
+  const [hr_employee_img, ] = useState("");
   const [hr_emp, setHr_Emp] = useState("");
   const [hr_employee_eng, setHr_Employee_eng] = useState("");
   const [hr_lastname_eng, setHr_Lastname_Eng] = useState("");
@@ -138,24 +138,7 @@ const uploadFile = async (e) => {
   }, [id_department]);
   
    
-  const director =() => {
-    document.getElementById('de').disabled=true;
-    document.getElementById('po').disabled=true;
-    setID_department("26");
-    setID_position("50");
-  }
-  const manager =() => {
-    document.getElementById('po').disabled=true;
-    document.getElementById('de').disabled=false;
-    // setID_department("26");
-    setID_position("51");
-  }
   
-const AsstManager = () => {
-    document.getElementById('po').disabled=true;
-    document.getElementById('de').disabled=false;
-    setID_position("63");
-  }
   const cat_emp =() => {
     document.getElementById('de').disabled=false;
     document.getElementById('po').disabled=false;

@@ -33,7 +33,7 @@ const ProfileComponent = (props) => {
   let hr_section_filter = hr_section.filter((data) => {
     return data.name_section !== "Dr";
   });
-  let arr2 = [1, 2]
+  // let arr2 = [1, 2]
   return (
     <>
       <div className="content">

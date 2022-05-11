@@ -31,7 +31,7 @@ const port = 5000;
 
 //Database Connect
 const db = mysql.createConnection({
-  host: "localhost",
+  host: "host.docker.internal",
   user: "root",
   password: "",
   database: "form_hr",
@@ -42,6 +42,11 @@ db.connect((err) => {
   }
   console.log("Connected to database");
 });
+
+setInterval(function () {
+  db.query('SELECT 1');
+}, 5000);
+
 global.db = db;
 app.listen(port, () => {
   console.log(`Server running on port: ${port}`);

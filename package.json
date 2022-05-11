@@ -41,7 +41,7 @@
     "sweetalert2": "^11.1.10"
   },
   "scripts": {
-    "start": "set PORT=4000 && react-scripts start",
+    "start": "PORT=4000  react-scripts start",
     "build": "react-scripts build && gulp licenses",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

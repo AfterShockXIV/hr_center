@@ -28,7 +28,7 @@ export default function EditComponent(props) {
   //======= ID Dynamic ====================================
   const [id_section, setID_section] = useState("");
   const [id_department, setID_department] = useState("");
-  const [id_position, setID_position] = useState("");
+  const [id_position,] = useState("");
 
   //================เก็บค่าจาก API =====================
   const [hr_section, setHr_section] = useState([]);
@@ -237,30 +237,30 @@ export default function EditComponent(props) {
     document.getElementById("label_de").style.visibility = "";
   };
 
-  const manager = () => {
-    document.getElementById("po").style.visibility = "hidden";
-    document.getElementById("de").style.visibility = "";
-    document.getElementById("label_po").style.visibility = "hidden";
-    document.getElementById("label_de").style.visibility = "";
-    setID_position("51");
-  };
+  // const manager = () => {
+  //   document.getElementById("po").style.visibility = "hidden";
+  //   document.getElementById("de").style.visibility = "";
+  //   document.getElementById("label_po").style.visibility = "hidden";
+  //   document.getElementById("label_de").style.visibility = "";
+  //   setID_position("51");
+  // };
 
-  const asstmanager = () => {
-    document.getElementById("po").style.visibility = "hidden";
-    document.getElementById("de").style.visibility = "";
-    document.getElementById("label_po").style.visibility = "hidden";
-    document.getElementById("label_de").style.visibility = "";
-    setID_position("63");
-  };
+  // const asstmanager = () => {
+  //   document.getElementById("po").style.visibility = "hidden";
+  //   document.getElementById("de").style.visibility = "";
+  //   document.getElementById("label_po").style.visibility = "hidden";
+  //   document.getElementById("label_de").style.visibility = "";
+  //   setID_position("63");
+  // };
 
-  const director = () => {
-    document.getElementById("de").style.visibility = "hidden";
-    document.getElementById("po").style.visibility = "hidden";
-    document.getElementById("label_de").style.visibility = "hidden";
-    document.getElementById("label_po").style.visibility = "hidden";
-    setID_department("26");
-    setID_position("50");
-  };
+  // const director = () => {
+  //   document.getElementById("de").style.visibility = "hidden";
+  //   document.getElementById("po").style.visibility = "hidden";
+  //   document.getElementById("label_de").style.visibility = "hidden";
+  //   document.getElementById("label_po").style.visibility = "hidden";
+  //   setID_department("26");
+  //   setID_position("50");
+  // };
 
   const Click_check_work = () => {
     // setJob_out_edit("");
