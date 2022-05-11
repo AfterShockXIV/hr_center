@@ -119,8 +119,8 @@ const ExportExcel = async (req, res, next) => {
         let name_section_f = ""
         let Where_section_dr = ""
         if (id_section === "All") {
-        
-        }else{
+
+        } else {
           if (dataEmp.length === 0) {
             Where_section_dr = ""
           } else {
@@ -128,7 +128,7 @@ const ExportExcel = async (req, res, next) => {
             Where_section_dr = `and hr_position.toLevel = 'Dr_${dataEmp[0].name_section}'`
           }
         }
-        
+
         // console.log(Where_section_dr)
         let Select_Dr = `SELECT * FROM project_hr inner join hr_section on (project_hr.id_section = hr_section.id_section) inner join hr_department on (project_hr.id_department = hr_department.id_department)  inner join hr_position on (project_hr.id_position = hr_position.id_position) where project_hr.status_approve != '' ${Where_section_dr} Order by project_hr.hr_run_id DESC `
         db.query(Select_Dr, async (err, result) => {
@@ -137,46 +137,67 @@ const ExportExcel = async (req, res, next) => {
           } else {
             // console.log(dataEmp)
             // console.log(dataEmp.length)
+
             const workbook = new Excel.Workbook();
             const worksheet = workbook.addWorksheet("My Sheet");
             worksheet.columns = [
               { header: "ลำดับ", key: "key", width: 5 },
+              { header: "รหัสพนักงาน", key: "hr_employeeid", width: 20 },
               { header: "ชื่อ", key: "fname", width: 20 },
               { header: "นามสกุล", key: "lname", width: 20 },
+              { header: "firstname", key: "fnameE", width: 20 },
+              { header: "surname", key: "lnameE", width: 20 },
               { header: "สายงาน", key: "section", width: 50 },
               { header: "ฝ่าย", key: "department", width: 30 },
               { header: "ตำแหน่ง", key: "position", width: 30 },
               { header: "Email", key: "email", width: 20 },
               { header: "เบอร์โทร", key: "tel", width: 20 },
+              { header: "เลขสแกนนิ้ว", key: "number_emp", width: 20 },
+              { header: "วันเกิด", key: "birthday_emp", width: 20 },
+              { header: "พนักงาน", key: "hr_emp", width: 20 },
               { header: "สถานะ", key: "status_emp", width: 20 },
             ]
+
             if (id_section === "All") {
               dataEmp.forEach((data, key) => {
-                worksheet.addRow({
-                  key: key + 1,
-                  fname: data.hr_employeename,
-                  lname: data.hr_surname,
-                  section: data.thai_section,
-                  department: data.thai_department,
-                  position: data.thai_position,
-                  email: data.hr_email_user,
-                  tel: data.hr_phone,
-                  status_emp: data.status_emp
-                })
-              });
-            } else {
-              //ไม่มีชื่อ ผอ 
-              if (result.length === 0 || result.length > 1 ) {
-                dataEmp.forEach((data, key) => {
+                let objectEmp =
                   worksheet.addRow({
                     key: key + 1,
+                    hr_employeeid: data.hr_employeeid,
                     fname: data.hr_employeename,
                     lname: data.hr_surname,
+                    firstname: data.hr_employee_eng,
+                    surname: data.hr_lastname_eng,
                     section: data.thai_section,
                     department: data.thai_department,
                     position: data.thai_position,
                     email: data.hr_email_user,
                     tel: data.hr_phone,
+                    number_emp: data.number_emp,
+                    birthday_emp: data.birthday_emp,
+                    hr_emp: data.hr_emp,
+                    status_emp: data.status_emp
+                  })
+              });
+            } else {
+              //ไม่มีชื่อ ผอ 
+              if (result.length === 0 || result.length > 1) {
+                dataEmp.forEach((data, key) => {
+                  worksheet.addRow({
+                    key: key + 1,
+                    hr_employeeid: data.hr_employeeid,
+                    fname: data.hr_employeename,
+                    lname: data.hr_surname,
+                    firstname: data.hr_employee_eng,
+                    surname: data.hr_lastname_eng,
+                    section: data.thai_section,
+                    department: data.thai_department,
+                    position: data.thai_position,
+                    email: data.hr_email_user,
+                    tel: data.hr_phone,
+                    number_emp: data.number_emp,
+                    birthday_emp: data.birthday_emp,
+                    hr_emp: data.hr_emp,
                     status_emp: data.status_emp
                   })
                 });
@@ -184,25 +205,37 @@ const ExportExcel = async (req, res, next) => {
                 //มีชื่อ ผอ 
                 worksheet.addRow({
                   key: 1,
+                  hr_employeeid: result[0].hr_employeeid,
                   fname: result[0].hr_employeename,
                   lname: result[0].hr_surname,
+                  firstname: result[0].hr_employee_eng,
+                  surname: result[0].hr_lastname_eng,
                   section: result[0].thai_section,
                   department: result[0].thai_department,
                   position: result[0].thai_position,
                   email: result[0].hr_email_user,
                   tel: result[0].hr_phone,
-                  status_emp: data.status_emp
+                  number_emp: result[0].number_emp,
+                  birthday_emp: result[0].birthday_emp,
+                  hr_emp: result[0].hr_emp,
+                  status_emp: result[0].status_emp
                 })
                 dataEmp.forEach((data, key) => {
                   worksheet.addRow({
                     key: key + 2,
+                    hr_employeeid: data.hr_employeeid,
                     fname: data.hr_employeename,
                     lname: data.hr_surname,
+                    firstname: data.hr_employee_eng,
+                    surname: data.hr_lastname_eng,
                     section: data.thai_section,
                     department: data.thai_department,
                     position: data.thai_position,
                     email: data.hr_email_user,
-                    tel: result[0].hr_phone,
+                    tel: data.hr_phone,
+                    number_emp: data.number_emp,
+                    birthday_emp: data.birthday_emp,
+                    hr_emp: data.hr_emp,
                     status_emp: data.status_emp
                   })
                 });
