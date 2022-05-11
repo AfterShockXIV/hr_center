@@ -41,4 +41,6 @@ router.get('/apis/get/RelationData/:id_section',RelationData.RelationData)
 //================================================================
 const Excel = require('../Controller/GET/ExcelController')
 router.get('/apis/get/excel',Excel.Excel_read)
+router.get('/apis/get/exportExcel/:id_section',Excel.ExportExcel)
+
 module.exports = router;

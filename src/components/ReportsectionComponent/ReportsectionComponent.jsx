@@ -131,6 +131,8 @@ export default function ReportsectionComponent() {
                   );
                 })}
               </Input>
+                
+           
               <MDBDataTableV5
                 //striped
                 hover

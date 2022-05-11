@@ -11,7 +11,8 @@ export default function ReportEmpComponent() {
   const id_section_local = localStorage.getItem("id_section");
   const [hr_section, setHr_section] = useState([]);
   const [id_section, setID_section] = useState(id_section_local.slice(1, -1));
-
+  const [name_section , setName_section] = useState("")
+  console.log(name_section)
   useEffect(() => {
     fetch(`${UrlServer}/apis/get/allemp/${name_department}/${id_section}`)
       .then((response) => response.json())
@@ -26,6 +27,8 @@ export default function ReportEmpComponent() {
       .then((result) => setHr_section(result))
       .catch((Error) => Error);
   }, []);
+
+
 
   const row = [];
   data_status.forEach((data, key) => {
@@ -185,7 +188,10 @@ export default function ReportEmpComponent() {
                   id="txtSec"
                   required
                   type="select"
-                  onChange={(e) => setID_section(e.target.value)}
+                  onChange={(e) => {
+                    setID_section(e.target.value)
+                    // setName_section(e.target.name_section)
+                  }}
                   style={{ fontSize: "14px" }}
                 >
                   <option value="">เลือกสายงาน</option>
@@ -198,7 +204,20 @@ export default function ReportEmpComponent() {
                     );
                   })}
                 </Input>
+                <br></br>
 
+                <a href={`${UrlServer}/apis/get/exportExcel/${id_section}`}>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    type="button"
+                    className="button"
+                    color="success"
+                  >export to excel</Button>
+                </a>
+
+                <br></br>
+                <br></br>
                 <MDBDataTableV5
                   //striped
                   hover
